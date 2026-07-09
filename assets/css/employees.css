@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap");
+
+body {
+  background-color: #030307;
+  color: #7a84a6;
+  font-family: "Rajdhani", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.cyber-font {
+  font-family: "Orbitron", sans-serif;
+}
+
+.neon-text-green {
+  color: #00ff22;
+}
+
+.neon-btn-green {
+  background-color: transparent;
+  border: 1px solid #00660f;
+  color: #00ff22;
+  transition: all 0.2s ease-in-out;
+}
+
+.neon-btn-green:hover {
+  background-color: rgba(0, 255, 34, 0.06);
+  border-color: #00ff22;
+}
+
+.active-pill {
+  border: 1px solid rgba(0, 255, 34, 0.3);
+  background-color: rgba(0, 255, 34, 0.04);
+  color: #00ff22;
+  letter-spacing: 0.1em;
+}
+
+.sidebar-item-active {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 34, 0.06) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-left: 3px solid #00ff22;
+  color: #00ff22;
+}
+
+/* Layout Columns Grid System - Expanded Sizing */
+.table-grid {
+  display: grid;
+  grid-template-columns: 100px 200px 260px 150px 190px 110px 1fr;
+  align-items: center;
+}
+
+/* Dropdown custom transitions */
+.dropdown-content {
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-content.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* --- LOGO RADAR GLOW ANIMATION --- */
+@keyframes radarGlow {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(0, 255, 34, 0.2),
+      0 0 4px 1px rgba(0, 255, 34, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 12px 3px rgba(0, 255, 34, 0.4),
+      0 0 6px 2px rgba(0, 255, 34, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(0, 255, 34, 0.2),
+      0 0 4px 1px rgba(0, 255, 34, 0.1);
+  }
+}
+
+.logo-radar-glow {
+  animation: radarGlow 3s infinite ease-in-out;
+}
+
+/* --- CYBER GLITCH ANIMATION --- */
+@keyframes cyberGlitch {
+  0%,
+  92%,
+  100% {
+    text-shadow: none;
+    transform: skew(0deg);
+  }
+  93% {
+    text-shadow:
+      1.5px 0 #ff3b4c,
+      -1.5px 0 #00c2ff;
+    transform: skew(1.5deg);
+  }
+  94% {
+    text-shadow:
+      -1.5px 0 #ff3b4c,
+      1.5px 0 #00c2ff;
+    transform: skew(-1deg);
+  }
+  95% {
+    text-shadow: none;
+    transform: skew(0deg);
+  }
+  97% {
+    text-shadow:
+      1px 0 #00ff22,
+      -1px 0 #ff3b4c;
+    transform: skew(0.5deg);
+  }
+  98% {
+    text-shadow: none;
+    transform: skew(0deg);
+  }
+}
+
+.text-glitch-active {
+  animation: cyberGlitch 4.5s infinite linear;
+}
