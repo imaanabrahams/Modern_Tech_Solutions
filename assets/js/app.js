@@ -17,6 +17,7 @@ const DATA_FILES = {
 };
 
 const AUTH_STORAGE_KEY = "isAuthenticated";
+const THEME_STORAGE_KEY = "siteTheme";
 
 const NAV_ITEMS = [
   { path: "dashboard", label: "Dashboard", icon: "layout" },
@@ -64,6 +65,25 @@ function clearTimers() {
   timers = [];
 }
 
+function getPreferredTheme() {
+  return localStorage.getItem(THEME_STORAGE_KEY) ||
+    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+}
+
+function applyTheme(theme) {
+  document.documentElement.classList.toggle('theme-light', theme === 'light');
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+}
+
+function themeToggleLabel(theme) {
+  return theme === 'light' ? 'moon' : 'sun';
+}
+
+function getThemeButton(theme) {
+  const symbol = theme === 'light' ? 'moon' : 'sun';
+  return `<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to ${symbol} mode">${icon(symbol, 16)}</button>`;
+}
+
 function icon(name, size = 16, extra = "") {
   const attrs = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}`;
   const paths = {
@@ -88,6 +108,8 @@ function icon(name, size = 16, extra = "") {
     lock: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
     user: '<path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
+    sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/>',
+    moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z"/>',
     search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
     edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
     trash:
@@ -289,12 +311,15 @@ function renderShell(current) {
             <button id="mobile-menu" class="mobile-menu-btn" aria-label="Open menu">${icon("menu", 16)}</button>
             <p class="current-page">${escapeHtml(currentPageLabel(current))}</p>
           </div>
-          <div class="profile">
-            <div class="profile-copy">
-              <p class="profile-name">${escapeHtml(state.user.fullName)}</p>
-              <p class="profile-role">${escapeHtml(state.user.role).toUpperCase()}</p>
+          <div class="topbar-right">
+            <div class="profile">
+              <div class="profile-copy">
+                <p class="profile-name">${escapeHtml(state.user.fullName)}</p>
+                <p class="profile-role">${escapeHtml(state.user.role).toUpperCase()}</p>
+              </div>
+              <div class="avatar">LM</div>
             </div>
-            <div class="avatar">LM</div>
+            ${getThemeButton(getPreferredTheme())}
           </div>
         </header>
         <main class="content">${content}</main>
@@ -361,6 +386,11 @@ function attachShellEvents() {
   document
     .getElementById("drawer-close")
     ?.addEventListener("click", closeMobileMenu);
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    const current = getPreferredTheme();
+    applyTheme(current === 'light' ? 'dark' : 'light');
+    render();
+  });
   document
     .getElementById("mobile-backdrop")
     ?.addEventListener("click", closeMobileMenu);
@@ -1664,6 +1694,7 @@ function legend(items) {
 
 window.addEventListener("hashchange", render);
 window.addEventListener("DOMContentLoaded", async () => {
+  applyTheme(getPreferredTheme());
   await loadData();
   if (!window.location.hash) {
     window.location.hash = "#/dashboard";
