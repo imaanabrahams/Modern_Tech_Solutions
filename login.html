@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syntax Terrorists | Sign In</title>
+    <link rel="icon" href="./public/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <main class="login-screen">
+      <div class="login-grid-bg"></div>
+      <div class="scan-line"></div>
+      <div class="vignette"></div>
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+
+      <div id="login-card" class="login-card-wrap">
+        <div class="neon-border">
+          <section class="login-card">
+            <div class="login-logo">
+              <div class="logo-icon-lg">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polygon
+                    points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                  ></polygon>
+                </svg>
+              </div>
+              <h1 id="login-title" class="login-title">SYNTAX TERRORISTS</h1>
+              <div class="login-subtitle">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="4 17 10 11 4 5"></polyline>
+                  <line x1="12" x2="20" y1="19" y2="19"></line>
+                </svg>
+                <span>HR MANAGEMENT SYSTEM v2.0</span>
+              </div>
+            </div>
+            <div class="login-divider"></div>
+
+            <form id="login-form">
+              <div class="form-row" style="margin-bottom: 20px">
+                <label class="label" for="username">USERNAME</label>
+                <div id="username-border" class="field-border">
+                  <input
+                    id="username"
+                    class="input mono"
+                    type="text"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                  />
+                </div>
+                <p id="username-error" class="field-error" hidden></p>
+              </div>
+
+              <div class="form-row" style="margin-bottom: 20px">
+                <label class="label" for="password">PASSWORD</label>
+                <div id="password-border" class="field-border">
+                  <input
+                    id="password"
+                    class="input mono"
+                    type="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                  />
+                </div>
+                <p id="password-error" class="field-error" hidden></p>
+              </div>
+
+              <button id="login-submit" class="btn login-submit" type="submit">
+                INITIALIZE SESSION
+              </button>
+            </form>
+
+            <div class="demo-box">
+              <p class="demo-title">// DEMO ACCESS CREDENTIALS</p>
+              <p>user: <span>admin</span></p>
+              <p>pass: <span>admin123</span></p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="./assets/js/login.js"></script>
+  </body>
+</html>
