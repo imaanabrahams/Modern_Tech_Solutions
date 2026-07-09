@@ -101,6 +101,11 @@
       </div>
     </main>
 
+    <script>
+      if (localStorage.getItem("isAuthenticated") === "true") {
+        window.location.replace("/index.html");
+      }
+    </script>
     <script src="./assets/js/login.js"></script>
   </body>
 </html>

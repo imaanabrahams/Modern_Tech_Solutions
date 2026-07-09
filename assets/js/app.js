@@ -198,7 +198,7 @@ function render() {
   const current = route();
 
   if (!isAuthenticated()) {
-    window.location.replace("./login.html");
+    window.location.replace("/login.html");
     return;
   }
 
@@ -211,68 +211,7 @@ function render() {
 }
 
 function renderLogin() {
-  modalRoot().innerHTML = "";
-  app().innerHTML = `
-    <main class="login-screen">
-      <div class="login-grid-bg"></div>
-      <div class="scan-line"></div>
-      <div class="vignette"></div>
-      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
-
-      <div id="login-card" class="login-card-wrap">
-        <div class="neon-border">
-          <section class="login-card">
-            <div class="login-logo">
-              <div class="logo-icon-lg">${icon("zap", 24)}</div>
-              <h1 id="login-title" class="login-title">SYNTAX TERRORISTS</h1>
-              <div class="login-subtitle">${icon("terminal", 12)}<span>HR MANAGEMENT SYSTEM v2.0</span></div>
-            </div>
-            <div class="login-divider"></div>
-
-            <form id="login-form">
-              <div class="form-row" style="margin-bottom:20px">
-                <label class="label" for="username">${icon("user", 10)} USERNAME</label>
-                <div id="username-border" class="field-border">
-                  <input id="username" class="input mono" type="text" placeholder="Enter username" autocomplete="username" />
-                </div>
-                <p id="username-error" class="field-error" hidden></p>
-              </div>
-
-              <div class="form-row" style="margin-bottom:20px">
-                <label class="label" for="password">${icon("lock", 10)} PASSWORD</label>
-                <div id="password-border" class="field-border">
-                  <input id="password" class="input mono" type="password" placeholder="Enter password" autocomplete="current-password" />
-                </div>
-                <p id="password-error" class="field-error" hidden></p>
-              </div>
-
-              <button id="login-submit" class="btn login-submit" type="submit">INITIALIZE SESSION</button>
-            </form>
-
-            <div class="demo-box">
-              <p class="demo-title">// DEMO ACCESS CREDENTIALS</p>
-              <p>user: <span>admin</span></p>
-              <p>pass: <span>admin123</span></p>
-            </div>
-          </section>
-        </div>
-      </div>
-    </main>
-  `;
-
-  const title = document.getElementById("login-title");
-  const glitchTimer = setInterval(() => {
-    title?.classList.add("glitch");
-    setTimeout(() => title?.classList.remove("glitch"), 200);
-  }, 5000);
-  timers.push(glitchTimer);
-
-  document.getElementById("login-form").addEventListener("submit", handleLogin);
-  ["username", "password"].forEach((field) => {
-    document
-      .getElementById(field)
-      .addEventListener("input", () => clearLoginError(field));
-  });
+  window.location.replace("/login.html");
 }
 
 function clearLoginError(field) {
@@ -319,7 +258,7 @@ async function handleLogin(event) {
   if (username === state.user.username && password === state.user.password) {
     localStorage.setItem(AUTH_STORAGE_KEY, "true");
     toast("ACCESS GRANTED");
-    window.location.replace("./index.html");
+    setTimeout(() => window.location.replace("/index.html"), 120);
   } else {
     button.disabled = false;
     button.textContent = "INITIALIZE SESSION";
@@ -432,7 +371,7 @@ function attachShellEvents() {
     button.addEventListener("click", () => {
       localStorage.removeItem(AUTH_STORAGE_KEY);
       ui.mobileMenuOpen = false;
-      window.location.replace("./login.html");
+      window.location.replace("/login.html");
     });
   });
 }

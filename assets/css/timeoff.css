@@ -1,0 +1,511 @@
+/* ==========================================
+   GOOGLE FONTS
+========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+/* =====================================================
+   CSS VARIABLES
+===================================================== */
+:root {
+  --bg: #070b17;
+  --sidebar: #0d1223;
+  --card: #111827;
+
+  --border: rgba(255, 255, 255, 0.06);
+
+  --white: #ffffff;
+  --text: #d6dbeb;
+  --muted: #8892b0;
+
+  --cyan: #00d4ff;
+  --green: #39ff14;
+  --red: #ff6464;
+  --yellow: #ffd54a;
+  --purple: #b36dff;
+}
+
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: #ffffff;
+
+  font-family: "Rajdhani", sans-serif;
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.sidebar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 260px;
+  height: 100vh;
+
+  background: #0d1428;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 30px 20px;
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 40px;
+}
+
+.logo i {
+  font-size: 28px;
+  color: var(--green);
+}
+
+.logo h2 {
+  font-family: "Orbitron", sans-serif;
+
+  font-size: 1.2rem;
+
+  letter-spacing: 2px;
+  color: var(--green);
+}
+
+/* ==========================================
+   SIDEBAR LINKS
+========================================== */
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar nav a {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px 16px;
+
+  border-radius: 12px;
+
+  color: #aab4d4;
+
+  transition: 0.3s;
+}
+
+.sidebar nav a i {
+  width: 20px;
+
+  text-align: center;
+
+  font-size: 20px;
+}
+
+.sidebar nav a:hover {
+  background: #131d38;
+
+  color: #ffffff;
+}
+
+.sidebar nav a.active {
+  background: rgba(57, 255, 20, 0.12);
+
+  color: var(--green);
+
+  font-weight: 700;
+
+  border: 1px solid rgba(57, 255, 20, 0.25);
+}
+
+/* ==========================================
+   SIDEBAR FOOTER
+========================================== */
+
+.sidebar-footer {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+/* ==========================================
+   SYSTEM STATUS
+========================================== */
+
+.system-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color: #8b93b5;
+
+  font-size: 0.9rem;
+}
+
+.system-status .dot {
+  width: 10px;
+
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #39ff14;
+
+  box-shadow: 0 0 10px #39ff14;
+}
+
+/* ==========================================
+   LOGOUT BUTTON
+========================================== */
+
+.logout {
+  border: none;
+
+  padding: 13px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  background: #1b2443;
+
+  color: #ffffff;
+
+  font-size: 0.95rem;
+
+  transition: 0.3s;
+}
+
+.logout:hover {
+  background: #ff5a5a;
+}
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.main-content {
+  margin-left: 260px;
+
+  padding: 35px;
+
+  min-height: 100vh;
+}
+
+/* ==========================================
+   TOP NAVIGATION
+========================================== */
+
+.topbar {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 35px;
+}
+
+.topbar h1 {
+  font-family: "Orbitron", sans-serif;
+
+  font-size: 2rem;
+
+  letter-spacing: 2px;
+}
+
+.topbar p {
+  margin-top: 8px;
+
+  color: #8b93b5;
+
+  font-family: "JetBrains Mono", monospace;
+
+  font-size: 0.9rem;
+}
+
+/* ==========================================
+   USER PROFILE
+========================================== */
+
+.user-profile {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.avatar {
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+
+  color: white;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-weight: bold;
+
+  font-size: 1rem;
+}
+
+.user-profile h4 {
+  font-size: 1rem;
+}
+
+.user-profile small {
+  color: #8b93b5;
+}
+
+/* ==========================================
+   SUMMARY CARDS
+========================================== */
+
+.summary {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+
+  gap: 22px;
+
+  margin-bottom: 35px;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.card {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: 0.35s;
+}
+
+.card::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  top: 0;
+
+  width: 100%;
+
+  height: 3px;
+}
+
+.card:nth-child(1)::before {
+  background: var(--cyan);
+}
+
+.card:nth-child(2)::before {
+  background: var(--green);
+}
+
+.card:nth-child(3)::before {
+  background: var(--yellow);
+}
+
+.card:nth-child(4)::before {
+  background: var(--red);
+}
+
+/* Summary Card Colored glows */
+.card:nth-child(1):hover {
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.18);
+}
+
+.card:nth-child(2):hover {
+  box-shadow: 0 10px 30px rgba(57, 255, 20, 0.18);
+}
+
+.card:nth-child(3):hover {
+  box-shadow: 0 10px 30px rgba(255, 213, 74, 0.18);
+}
+
+.card:nth-child(4):hover {
+  box-shadow: 0 10px 30px rgba(255, 100, 100, 0.18);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* ==========================================
+   CARD HEADER
+========================================== */
+
+.card-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.card-top span {
+  color: var(--muted);
+
+  font-size: 0.72rem;
+
+  letter-spacing: 2px;
+
+  font-family: "JetBrains Mono", monospace;
+
+  text-transform: uppercase;
+}
+
+.card-top i {
+  font-size: 22px;
+}
+
+/* ==========================================
+   CARD VALUES
+========================================== */
+
+.card h2 {
+  margin-top: 18px;
+
+  font-size: 2rem;
+
+  font-weight: 700;
+}
+
+/* ==========================================
+   CARD FOOTER
+========================================== */
+
+.card small {
+  display: block;
+
+  margin-top: 10px;
+
+  color: #7f88a8;
+
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* ==========================================
+   ICON COLORS
+========================================== */
+
+.card:nth-child(1) i,
+.card:nth-child(1) h2 {
+  color: #00d4ff;
+}
+
+.card:nth-child(2) i,
+.card:nth-child(2) h2 {
+  color: #39ff14;
+}
+
+.card:nth-child(3) i,
+.card:nth-child(3) h2 {
+  color: #ffc107;
+}
+
+.card:nth-child(4) i,
+.card:nth-child(4) h2 {
+  color: #ff5a5a;
+}
+
+/* ==========================================
+   FILTER SECTION
+========================================== */
+
+.filters {
+  display: flex;
+
+  gap: 18px;
+
+  margin-bottom: 30px;
+
+  flex-wrap: wrap;
+}
+
+.filter-card {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  margin-bottom: 30px;
+}
+
+/* ==========================================
+   SELECT + SEARCH
+========================================== */
+
+.filters select,
+.filters input {
+  background: #1a2136;
+
+  color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 12px;
+
+  padding: 13px 18px;
+  min-width: 220px;
+  flex: 1;
+}

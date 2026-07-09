@@ -21,6 +21,11 @@
       aria-atomic="true"
     ></div>
     <div id="modal-root"></div>
+    <script>
+      if (localStorage.getItem("isAuthenticated") !== "true") {
+        window.location.replace("/login.html");
+      }
+    </script>
     <script src="./assets/js/embeddedData.js"></script>
     <script src="./assets/js/app.js" defer></script>
   </body>
