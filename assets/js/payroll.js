@@ -2,6 +2,7 @@
 // ELEMENTS
 // ======================================================
 
+
 const payrollTable = document.getElementById("payrollTable");
 
 const employeeCount = document.getElementById("employeeCount");

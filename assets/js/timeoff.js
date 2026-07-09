@@ -2,6 +2,7 @@
 // ELEMENTS
 // ========================================
 
+
 const leaveTable = document.getElementById("leaveTableBody");
 
 const totalRequests = document.getElementById("totalRequests");
