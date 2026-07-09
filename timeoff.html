@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syntax HR | Time Off</title>
+
+<link rel="stylesheet" href="./assets/css/timeoff.css">
+<link href="fonts.googleapis.com/css2?family=…&family=…&…" rel="stylesheet">
+<link rel="stylesheet"
+href="cdnjs.cloudflare.com/ajax/…/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ===================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================== -->
+    <aside class="sidebar">
+
+        <div>
+            <div class="logo">
+                <h2>:zap: SYNTAX HR</h2>
+                <p>THE SYNTAX TERRORISTS</p>
+            </div>
+
+            <nav>
+                <a href="#">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-users"></i>
+                    Employees
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Payroll
+                </a>
+                <a href="#" class="active">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Time Off
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-clock"></i>
+                    Attendance
+                </a>
+            </nav>
+
+        </div>
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+                <span class="dot"></span>
+                SYSTEM ONLINE
+            </div>
+
+            <button class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- ===================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================== -->
+    <main class="main-content">
+
+        <!-- TOP NAV -->
+        <header class="topbar">
+
+            <div>
+                <h1>Time Off Engine</h1>
+                <p>Manage employee leave requests and absences</p>
+            </div>
+
+            <div class="user-profile">
+
+                <div class="user-info">
+                    <h3>Khanya Gcilitshane</h3>
+                    <small>HR Administrator</small>
+                </div>
+
+                <div class="avatar">
+                    KG
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- SUMMARY -->
+        <section class="summary">
+
+            <div class="card total">
+
+                <div class="card-top">
+                    <span>TOTAL REQUESTS</span>
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+
+                <h2 id="totalRequests">0</h2>
+                <small>This Month</small>
+
+            </div>
+
+            <div class="card approved">
+
+                <div class="card-top">
+                    <span>APPROVED</span>
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <h2 id="approvedRequests">0</h2>
+                <small>Approved Leave</small>
+
+            </div>
+
+            <div class="card pending">
+
+                <div class="card-top">
+                    <span>PENDING</span>
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+
+                <h2 id="pendingRequests">0</h2>
+                <small>Awaiting Approval</small>
+
+            </div>
+
+            <div class="card denied">
+
+                <div class="card-top">
+                    <span>DENIED</span>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+
+                <h2 id="rejectedRequests">0</h2>
+                <small>Denied Requests</small>
+            </div>
+        </section>
+
+        <!-- LEAVE FORM -->
+        <section class="leave-form-card">
+
+            <div class="form-header">
+                <h2>APPLY FOR LEAVE</h2>
+                <p>Submit a new leave request</p>
+            </div>
+
+            <form id="leaveForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Employee</label>
+                        <select id="employeeName" required>
+                            <option value="">Select Employee</option>
+                            <option>Sibongile Nkosi</option>
+                            <option>Lungile Moyo</option>
+                            <option>Thabo Molefe</option>
+                            <option>Keshav Naidoo</option>
+                            <option>Zanele Khumalo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Leave Type</label>
+                        <select id="leaveReason" required>
+                            <option>Annual Leave</option>
+                            <option>Sick Leave</option>
+                            <option>Vacation</option>
+                            <option>Personal Leave</option>
+                            <option>Medical Appointment</option>
+                            <option>Bareavement</option>
+                            <option>Childcare</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label>Reason</label>
+
+                    <textarea
+                    id="leaveNotes"
+                    rows="4"
+                    placeholder="Reason for leave..."
+                    required>
+                    </textarea>
+
+                </div>
+
+                <button class="submit-btn" type="submit">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Submit Request
+
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- FILTERS -->
+
+        <div class="filter-card">
+
+            <div class="filters">
+
+                <select id="leaveType">
+                    <option value="All">All Leave Types</option>
+                    <option>Sick Leave</option>
+                    <option>Annual Leave</option>
+                    <option>Vacation</option>
+                    <option>Personal</option>
+                    <option>Medical Appointment</option>
+                    <option>Bereavement</option>
+                    <option>Childcare</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="All">All Statuses</option>
+                    <option>Approved</option>
+                    <option>Pending</option>
+                    <option>Denied</option>
+                </select>
+
+                <input type="text" id="searchEmployee" placeholder="Search employee...">
+
+            </div>
+
+        </div>
+
+        <!-- TABLE CARD -->
+        <section class="table-card">
+
+            <div class="table-header">
+                <div>
+                    <h2>LEAVE REQUESTS</h2>
+                    <small id="recordCount">0 Records</small>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Leave Type</th>
+                            <th>Start Date</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaveTableBody">
+                        <!-- JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+    <!-- ===================================== -->
+    <!-- LEAVE DETAILS MODAL -->
+    <!-- ===================================== -->
+
+    <div class="modal" id="leaveModal">
+
+        <div class="modal-content">
+
+            <span class="close">&times;</span>
+
+            <h2>Leave Details</h2>
+
+            <hr>
+
+            <div id="leaveDetails"></div>
+
+            <div class="modal-buttons">
+
+                <button id="approveBtn">Approve</button>
+
+                <button id="rejectBtn">Reject</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="./assets/js/timeoff.js"></script>
+
+</body>
+
+</html>
