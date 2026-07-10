@@ -1,4 +1,4 @@
-# ⚡ Syntax Terrorists HR Management System
+# ⚡ Modern_Tech_Solutions HR Management System
 
 A modern, responsive Human Resource Management System (HRMS) built using **HTML, CSS, and JavaScript**. This project provides a complete HR dashboard for managing employees, payroll, attendance, and leave requests through an intuitive cyberpunk-inspired interface.
 
@@ -8,7 +8,7 @@ The application was converted from a React/Vite project into a standalone HTML/C
 
 # 📖 Project Overview
 
-The Syntax Terrorists HR Management System is designed to simplify day-to-day HR operations by providing a centralized dashboard where administrators can manage employee information, monitor attendance, process payroll, and review leave requests.
+The Modern_Tech_Solutions HR Management System is designed to simplify day-to-day HR operations by providing a centralized dashboard where administrators can manage employee information, monitor attendance, process payroll, and review leave requests.
 
 The application stores user sessions using Local Storage and can run entirely on the client side without requiring a backend server.
 
@@ -282,13 +282,13 @@ Feel free to explore, modify, and expand upon the project for learning and devel
 
 # 👨‍💻 Author
 
-Developed by the **Syntax Terrorists** team as part of an HR Management System project.
+Developed by the **Modern_Tech_Solutions** team as part of an HR Management System project.
 
 Built using **HTML, CSS, and JavaScript** to demonstrate modern front-end development, responsive design, and interactive user interfaces.
 
 # 👨‍💻 Development Team
 
-This project was developed by the **Syntax Terrorists** team as part of an HR Management System project.
+This project was developed by the **Modern_Tech_Solutions** team as part of an HR Management System project.
 
 ### Team Members
 

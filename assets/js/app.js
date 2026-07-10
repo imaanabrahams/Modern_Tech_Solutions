@@ -339,7 +339,11 @@ function sidebarHTML(current) {
       <div class="brand-row">
         <div class="brand-icon">${icon("zap", 18)}</div>
         <div>
-          <h1 class="brand-title">SYNTAX<br/>TERRORISTS</h1>
+<<<<<<< HEAD
+          <h1 class="brand-title">Modern_Tech_Solutions</h1>
+=======
+          <h1 class="brand-title">MODERN<br/>TECH SOLUTIONS</h1>
+>>>>>>> bc937343c91ce6c315f5dbf845fc96a4be466c45
           <p class="brand-time">00:00:00</p>
         </div>
       </div>
@@ -1030,7 +1034,11 @@ function openPayslip(id) {
     <h2 class="modal-title">DIGITAL PAYSLIP</h2>
     <p class="modal-desc">${rec.month} ${rec.year} — ${escapeHtml(rec.employeeName)}</p>
     <div class="payslip-company">
-      <h3>${icon("zap", 16)} SYNTAX TERRORISTS</h3>
+<<<<<<< HEAD
+      <h3>${icon("zap", 16)} Modern_Tech_Solutions</h3>
+=======
+      <h3>${icon("zap", 16)} MODERN TECH SOLUTIONS</h3>
+>>>>>>> bc937343c91ce6c315f5dbf845fc96a4be466c45
       <p>EMPLOYEE PAYSLIP · ${rec.month.toUpperCase()} ${rec.year}</p>
     </div>
     <div class="payslip-info">

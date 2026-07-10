@@ -30,61 +30,46 @@ let filteredPayroll = [];
 // ======================================================
 
 async function loadPayroll() {
+  try {
+    const employeeResponse = await fetch("./data/employees.json");
 
-    try{
+    const payrollResponse = await fetch("./data/payroll-records.json");
 
-        const employeeResponse =
-            await fetch("./data/employees.json");
+    employees = await employeeResponse.json();
+    payroll = await payrollResponse.json();
 
-        const payrollResponse =
-            await fetch("./data/payroll-records.json");
-
-        employees = await employeeResponse.json();
-        payroll = await payrollResponse.json();
-
-        filteredPayroll = [...payroll];
-        displayPayroll();
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
+    filteredPayroll = [...payroll];
+    displayPayroll();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // ======================================================
 // DISPLAY PAYROLL
 // ======================================================
 
-function displayPayroll(){
+function displayPayroll() {
+  payrollTable.innerHTML = "";
 
-    payrollTable.innerHTML = "";
+  let gross = 0;
+  let totalDeduction = 0;
+  let totalNet = 0;
 
-    let gross = 0;
-    let totalDeduction = 0;
-    let totalNet = 0;
+  filteredPayroll.forEach((record) => {
+    const employee = employees.find((emp) => emp.id === record.employeeId);
 
-    filteredPayroll.forEach(record=>{
+    if (!employee) return;
 
-        const employee =
-            employees.find(emp=>emp.id===record.employeeId);
+    gross += record.baseSalary;
+    totalDeduction += record.deductions;
+    totalNet += record.netSalary;
 
-        if(!employee) return;
+    const initials = employee.firstName.charAt(0) + employee.lastName.charAt(0);
 
-        gross += record.baseSalary;
-        totalDeduction += record.deductions;
-        totalNet += record.netSalary;
+    const row = document.createElement("tr");
 
-        const initials =
-            employee.firstName.charAt(0) +
-            employee.lastName.charAt(0);
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
+    row.innerHTML = `
 
 <td>
 
@@ -197,113 +182,84 @@ class="delete-btn">
 
 `;
 
-        payrollTable.appendChild(row);
+    payrollTable.appendChild(row);
+  });
 
-    });
+  updateSummary(gross, totalDeduction, totalNet);
 
-    updateSummary(gross,totalDeduction,totalNet);
+  recordCount.textContent = `${filteredPayroll.length} Records • ${monthFilter.value} ${yearFilter.value}`;
 
-    recordCount.textContent =
-        `${filteredPayroll.length} Records • ${monthFilter.value} ${yearFilter.value}`;
-
-    addButtonEvents();
-
+  addButtonEvents();
 }
 
 // ======================================================
 // SUMMARY
 // ======================================================
 
-function updateSummary(gross,deduction,net){
+function updateSummary(gross, deduction, net) {
+  employeeCount.textContent = employees.length;
 
-    employeeCount.textContent =
-        employees.length;
+  grossSalary.textContent = "R " + gross.toLocaleString();
 
-    grossSalary.textContent =
-        "R " + gross.toLocaleString();
+  deductions.textContent = "R " + deduction.toLocaleString();
 
-    deductions.textContent =
-        "R " + deduction.toLocaleString();
-
-    netSalary.textContent =
-        "R " + net.toLocaleString();
-
+  netSalary.textContent = "R " + net.toLocaleString();
 }
 
 // ======================================================
 // BUTTON EVENTS
 // ======================================================
 
-function addButtonEvents(){
+function addButtonEvents() {
+  document.querySelectorAll(".view-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const id = button.dataset.id;
 
-    document.querySelectorAll(".view-btn")
-    .forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-            const id = button.dataset.id;
-
-            openPayslip(id);
-
-        });
-
+      openPayslip(id);
     });
+  });
 
-    document.querySelectorAll(".download-btn")
-    .forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-            const row = button.closest("tr");
-            const id = row.querySelector(".view-btn").dataset.id;
-            openPayslip(id, true);
-
-        });
-
+  document.querySelectorAll(".download-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest("tr");
+      const id = row.querySelector(".view-btn").dataset.id;
+      openPayslip(id, true);
     });
+  });
 
-    document.querySelectorAll(".edit-btn")
-    .forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-            const row = button.closest("tr");
-            const id = row.querySelector(".view-btn").dataset.id;
-            alert(`Edit payroll record for ${id} is not enabled in this demo.`);
-
-        });
-
+  document.querySelectorAll(".edit-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest("tr");
+      const id = row.querySelector(".view-btn").dataset.id;
+      alert(`Edit payroll record for ${id} is not enabled in this demo.`);
     });
+  });
 
-    document.querySelectorAll(".delete-btn")
-    .forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-            const row = button.closest("tr");
-            const id = row.querySelector(".view-btn").dataset.id;
-            const confirmed = confirm(`Delete payroll record for ${id}?`);
-            if(!confirmed) return;
-            payroll = payroll.filter(record=>record.employeeId !== id);
-            filteredPayroll = filteredPayroll.filter(record=>record.employeeId !== id);
-            displayPayroll();
-
-        });
-
+  document.querySelectorAll(".delete-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest("tr");
+      const id = row.querySelector(".view-btn").dataset.id;
+      const confirmed = confirm(`Delete payroll record for ${id}?`);
+      if (!confirmed) return;
+      payroll = payroll.filter((record) => record.employeeId !== id);
+      filteredPayroll = filteredPayroll.filter(
+        (record) => record.employeeId !== id,
+      );
+      displayPayroll();
     });
-
+  });
 }
 
-function openPayslip(employeeId, autoDownload = false){
-    const record = filteredPayroll.find(item => item.employeeId === employeeId);
-    if(!record) return;
+function openPayslip(employeeId, autoDownload = false) {
+  const record = filteredPayroll.find((item) => item.employeeId === employeeId);
+  if (!record) return;
 
-    const employee = employees.find(emp => emp.id === record.employeeId);
-    if(!employee) return;
+  const employee = employees.find((emp) => emp.id === record.employeeId);
+  if (!employee) return;
 
-    payslipContent.innerHTML = `
+  payslipContent.innerHTML = `
         <div class="payslip-company">
-            <h3>Syntax HR</h3>
+            <h3>Modern Tech Solutions</h3>
             <p>Payroll Summary for ${record.month} ${record.year}</p>
         </div>
         <div class="payslip-info">
@@ -334,48 +290,49 @@ function openPayslip(employeeId, autoDownload = false){
         </div>
     `;
 
-    modal.style.display = "flex";
+  modal.style.display = "flex";
 
-    if(autoDownload){
-        downloadPayslip(record, employee);
-    }
+  if (autoDownload) {
+    downloadPayslip(record, employee);
+  }
 }
 
-function closePayslipModal(){
-    modal.style.display = "none";
+function closePayslipModal() {
+  modal.style.display = "none";
 }
 
-function downloadPayslip(record, employee){
-    const content = `Payroll Payslip\n\nEmployee: ${employee.firstName} ${employee.lastName}\nEmployee ID: ${employee.id}\nStatus: ${record.status.charAt(0).toUpperCase() + record.status.slice(1)}\n\nBase Salary: R ${record.baseSalary.toLocaleString()}\nHours Worked: ${record.hoursWorked} hrs\nOvertime: ${record.overtimeHours || 0} hrs\nBonus: R ${(record.bonus || 0).toLocaleString()}\nDeductions: R ${record.deductions.toLocaleString()}\nNet Salary: R ${record.netSalary.toLocaleString()}`;
-    const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${employee.id}-${record.month}-${record.year}-payslip.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+function downloadPayslip(record, employee) {
+  const content = `Payroll Payslip\n\nEmployee: ${employee.firstName} ${employee.lastName}\nEmployee ID: ${employee.id}\nStatus: ${record.status.charAt(0).toUpperCase() + record.status.slice(1)}\n\nBase Salary: R ${record.baseSalary.toLocaleString()}\nHours Worked: ${record.hoursWorked} hrs\nOvertime: ${record.overtimeHours || 0} hrs\nBonus: R ${(record.bonus || 0).toLocaleString()}\nDeductions: R ${record.deductions.toLocaleString()}\nNet Salary: R ${record.netSalary.toLocaleString()}`;
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${employee.id}-${record.month}-${record.year}-payslip.txt`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
-function applyFilters(){
-    const month = monthFilter.value;
-    const year = yearFilter.value;
-    const status = statusFilter.value.toLowerCase();
+function applyFilters() {
+  const month = monthFilter.value;
+  const year = yearFilter.value;
+  const status = statusFilter.value.toLowerCase();
 
-    filteredPayroll = payroll.filter(record => {
-        const matchMonth = record.month === month;
-        const matchYear = String(record.year) === year;
-        const matchStatus = status === "all" || record.status.toLowerCase() === status;
-        return matchMonth && matchYear && matchStatus;
-    });
+  filteredPayroll = payroll.filter((record) => {
+    const matchMonth = record.month === month;
+    const matchYear = String(record.year) === year;
+    const matchStatus =
+      status === "all" || record.status.toLowerCase() === status;
+    return matchMonth && matchYear && matchStatus;
+  });
 
-    displayPayroll();
+  displayPayroll();
 }
 
 closeModalBtn.addEventListener("click", closePayslipModal);
-window.addEventListener("click", function(event){
-    if(event.target === modal){
-        closePayslipModal();
-    }
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closePayslipModal();
+  }
 });
 
 monthFilter.addEventListener("change", applyFilters);
