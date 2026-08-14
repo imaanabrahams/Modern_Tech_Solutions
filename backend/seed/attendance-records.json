@@ -1,0 +1,502 @@
+[
+  {
+    "id": "ATT001",
+    "employeeId": "EMP001",
+    "employeeName": "Sibongile Nkosi",
+    "date": "2025-07-25",
+    "checkIn": "08:55",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT002",
+    "employeeId": "EMP001",
+    "employeeName": "Sibongile Nkosi",
+    "date": "2025-07-26",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT003",
+    "employeeId": "EMP001",
+    "employeeName": "Sibongile Nkosi",
+    "date": "2025-07-27",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT004",
+    "employeeId": "EMP001",
+    "employeeName": "Sibongile Nkosi",
+    "date": "2025-07-28",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT005",
+    "employeeId": "EMP001",
+    "employeeName": "Sibongile Nkosi",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT006",
+    "employeeId": "EMP002",
+    "employeeName": "Lungile Moyo",
+    "date": "2025-07-25",
+    "checkIn": "08:45",
+    "checkOut": "17:30",
+    "hoursWorked": 8.75,
+    "status": "present"
+  },
+  {
+    "id": "ATT007",
+    "employeeId": "EMP002",
+    "employeeName": "Lungile Moyo",
+    "date": "2025-07-26",
+    "checkIn": "08:45",
+    "checkOut": "17:30",
+    "hoursWorked": 8.75,
+    "status": "present"
+  },
+  {
+    "id": "ATT008",
+    "employeeId": "EMP002",
+    "employeeName": "Lungile Moyo",
+    "date": "2025-07-27",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT009",
+    "employeeId": "EMP002",
+    "employeeName": "Lungile Moyo",
+    "date": "2025-07-28",
+    "checkIn": "08:45",
+    "checkOut": "17:30",
+    "hoursWorked": 8.75,
+    "status": "present"
+  },
+  {
+    "id": "ATT010",
+    "employeeId": "EMP002",
+    "employeeName": "Lungile Moyo",
+    "date": "2025-07-29",
+    "checkIn": "08:45",
+    "checkOut": "17:30",
+    "hoursWorked": 8.75,
+    "status": "present"
+  },
+  {
+    "id": "ATT011",
+    "employeeId": "EMP003",
+    "employeeName": "Thabo Molefe",
+    "date": "2025-07-25",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT012",
+    "employeeId": "EMP003",
+    "employeeName": "Thabo Molefe",
+    "date": "2025-07-26",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT013",
+    "employeeId": "EMP003",
+    "employeeName": "Thabo Molefe",
+    "date": "2025-07-27",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT014",
+    "employeeId": "EMP003",
+    "employeeName": "Thabo Molefe",
+    "date": "2025-07-28",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT015",
+    "employeeId": "EMP003",
+    "employeeName": "Thabo Molefe",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT016",
+    "employeeId": "EMP004",
+    "employeeName": "Keshav Naidoo",
+    "date": "2025-07-25",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT017",
+    "employeeId": "EMP004",
+    "employeeName": "Keshav Naidoo",
+    "date": "2025-07-26",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT018",
+    "employeeId": "EMP004",
+    "employeeName": "Keshav Naidoo",
+    "date": "2025-07-27",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT019",
+    "employeeId": "EMP004",
+    "employeeName": "Keshav Naidoo",
+    "date": "2025-07-28",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT020",
+    "employeeId": "EMP004",
+    "employeeName": "Keshav Naidoo",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT021",
+    "employeeId": "EMP005",
+    "employeeName": "Zanele Khumalo",
+    "date": "2025-07-25",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT022",
+    "employeeId": "EMP005",
+    "employeeName": "Zanele Khumalo",
+    "date": "2025-07-26",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT023",
+    "employeeId": "EMP005",
+    "employeeName": "Zanele Khumalo",
+    "date": "2025-07-27",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT024",
+    "employeeId": "EMP005",
+    "employeeName": "Zanele Khumalo",
+    "date": "2025-07-28",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT025",
+    "employeeId": "EMP005",
+    "employeeName": "Zanele Khumalo",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT026",
+    "employeeId": "EMP006",
+    "employeeName": "Sipho Zulu",
+    "date": "2025-07-25",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT027",
+    "employeeId": "EMP006",
+    "employeeName": "Sipho Zulu",
+    "date": "2025-07-26",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT028",
+    "employeeId": "EMP006",
+    "employeeName": "Sipho Zulu",
+    "date": "2025-07-27",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT029",
+    "employeeId": "EMP006",
+    "employeeName": "Sipho Zulu",
+    "date": "2025-07-28",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT030",
+    "employeeId": "EMP006",
+    "employeeName": "Sipho Zulu",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT031",
+    "employeeId": "EMP007",
+    "employeeName": "Naledi Moeketsi",
+    "date": "2025-07-25",
+    "checkIn": "08:30",
+    "checkOut": "17:30",
+    "hoursWorked": 9,
+    "status": "present"
+  },
+  {
+    "id": "ATT032",
+    "employeeId": "EMP007",
+    "employeeName": "Naledi Moeketsi",
+    "date": "2025-07-26",
+    "checkIn": "08:30",
+    "checkOut": "17:30",
+    "hoursWorked": 9,
+    "status": "present"
+  },
+  {
+    "id": "ATT033",
+    "employeeId": "EMP007",
+    "employeeName": "Naledi Moeketsi",
+    "date": "2025-07-27",
+    "checkIn": "08:30",
+    "checkOut": "17:30",
+    "hoursWorked": 9,
+    "status": "present"
+  },
+  {
+    "id": "ATT034",
+    "employeeId": "EMP007",
+    "employeeName": "Naledi Moeketsi",
+    "date": "2025-07-28",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT035",
+    "employeeId": "EMP007",
+    "employeeName": "Naledi Moeketsi",
+    "date": "2025-07-29",
+    "checkIn": "08:30",
+    "checkOut": "17:30",
+    "hoursWorked": 9,
+    "status": "present"
+  },
+  {
+    "id": "ATT036",
+    "employeeId": "EMP008",
+    "employeeName": "Farai Gumbo",
+    "date": "2025-07-25",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT037",
+    "employeeId": "EMP008",
+    "employeeName": "Farai Gumbo",
+    "date": "2025-07-26",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT038",
+    "employeeId": "EMP008",
+    "employeeName": "Farai Gumbo",
+    "date": "2025-07-27",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT039",
+    "employeeId": "EMP008",
+    "employeeName": "Farai Gumbo",
+    "date": "2025-07-28",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT040",
+    "employeeId": "EMP008",
+    "employeeName": "Farai Gumbo",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT041",
+    "employeeId": "EMP009",
+    "employeeName": "Karabo Dlamini",
+    "date": "2025-07-25",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT042",
+    "employeeId": "EMP009",
+    "employeeName": "Karabo Dlamini",
+    "date": "2025-07-26",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT043",
+    "employeeId": "EMP009",
+    "employeeName": "Karabo Dlamini",
+    "date": "2025-07-27",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT044",
+    "employeeId": "EMP009",
+    "employeeName": "Karabo Dlamini",
+    "date": "2025-07-28",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT045",
+    "employeeId": "EMP009",
+    "employeeName": "Karabo Dlamini",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT046",
+    "employeeId": "EMP010",
+    "employeeName": "Fatima Patel",
+    "date": "2025-07-25",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT047",
+    "employeeId": "EMP010",
+    "employeeName": "Fatima Patel",
+    "date": "2025-07-26",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT048",
+    "employeeId": "EMP010",
+    "employeeName": "Fatima Patel",
+    "date": "2025-07-27",
+    "checkIn": "-",
+    "checkOut": "-",
+    "hoursWorked": 0,
+    "status": "absent"
+  },
+  {
+    "id": "ATT049",
+    "employeeId": "EMP010",
+    "employeeName": "Fatima Patel",
+    "date": "2025-07-28",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  },
+  {
+    "id": "ATT050",
+    "employeeId": "EMP010",
+    "employeeName": "Fatima Patel",
+    "date": "2025-07-29",
+    "checkIn": "09:00",
+    "checkOut": "17:30",
+    "hoursWorked": 8.5,
+    "status": "present"
+  }
+]

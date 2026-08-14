@@ -1,0 +1,75 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">ATTENDANCE TRACKER</h1>
+      <p class="page-subtitle">Monitor employee check-ins</p>
+    </div>
+    <button id="export-attendance" class="btn blue"><span id="export-icon"></span> EXPORT REPORT</button>
+  </div>
+
+  <div class="grid grid-4" id="attendance-stats">
+    <!-- Attendance stats will be injected here -->
+  </div>
+
+  <section class="card">
+    <div class="card-content pt">
+      <div class="filters">
+        <input id="attendance-date" type="date" class="input grow" value="2025-07-25" />
+        <select id="attendance-status" class="select" style="max-width:220px">
+          <option value="all">All Statuses</option>
+          <option value="present">Present</option>
+          <option value="absent">Absent</option>
+          <option value="late">Late</option>
+          <option value="half-day">Half Day</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid charts-grid">
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">WEEKLY TREND</h2>
+        <p class="card-desc">Daily breakdown</p>
+      </div>
+      <div class="card-content" id="weekly-trend">
+        <!-- Weekly trend chart will be injected here -->
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">STATUS DISTRIBUTION</h2>
+        <p class="card-desc" id="status-date">Current date</p>
+      </div>
+      <div class="card-content" id="status-distribution">
+        <!-- Status distribution chart will be injected here -->
+      </div>
+    </section>
+  </div>
+
+  <section class="card">
+    <div class="card-header">
+      <h2 class="card-title">ATTENDANCE RECORDS</h2>
+      <p class="card-desc" id="attendance-period">0 records</p>
+    </div>
+    <div class="card-content">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Department</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Hours</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-table-body">
+            <!-- Attendance records will be injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>

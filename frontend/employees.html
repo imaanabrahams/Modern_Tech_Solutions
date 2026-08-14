@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">EMPLOYEE DIRECTORY</h1>
+      <p class="page-subtitle">Manage employee records</p>
+    </div>
+    <button id="add-employee" class="btn"><span id="add-icon"></span> ADD EMPLOYEE</button>
+  </div>
+
+  <section class="card">
+    <div class="card-content pt">
+      <div class="filters">
+        <div class="input-wrap grow">
+          <span class="input-icon" id="search-icon"></span>
+          <input id="employee-search" class="input with-icon" placeholder="Search by name, email, or ID..." />
+        </div>
+        <select id="employee-department" class="select" style="max-width:220px">
+          <option value="all">All Departments</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <h2 class="card-title">EMPLOYEE RECORDS</h2>
+      <p class="card-desc" id="employee-count">0 records found</p>
+    </div>
+    <div class="card-content">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Department</th>
+              <th>Position</th>
+              <th>Status</th>
+              <th class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employees-table-body">
+            <!-- Employees will be injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
