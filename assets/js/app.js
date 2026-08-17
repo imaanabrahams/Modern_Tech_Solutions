@@ -1652,7 +1652,7 @@ function pieChart(data, nameKey, valueKey, colorMap = null) {
     label: `${d[nameKey]} (${d[valueKey]})`,
     color: colorMap?.[d[nameKey]] || CHART_COLORS[i % CHART_COLORS.length],
   }));
-  return `<svg class="chart-svg" viewBox="0 0 240 220">${paths}<circle cx="${cx}" cy="${cy}" r="${inner - 4}" fill="#0a0a1e"/></svg>${legend(items)}`;
+  return `<svg class="chart-svg" viewBox="0 0 240 220">${paths}<circle class="chart-center" cx="${cx}" cy="${cy}" r="${inner - 4}"/></svg>${legend(items)}`;
 }
 function polar(cx, cy, r, angle) {
   const rad = ((angle - 90) * Math.PI) / 180;
