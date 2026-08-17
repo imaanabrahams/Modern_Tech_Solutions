@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Modern Tech Solutions HR | Payroll</title>
+
+<link rel="stylesheet" href="./assets/css/payroll.css">
+
+<link href="fonts.googleapis.com/css2?family=…&family=…&…" rel="stylesheet">
+
+<link rel="stylesheet"
+href="cdnjs.cloudflare.com/ajax/…/all.min.css">
+
+</head>
+
+<body>
+
+    
+<div class="dashboard">
+
+    <!-- ===================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================== -->
+
+    <aside class="sidebar">
+
+        <div>
+
+            <div class="logo">
+
+                <h2>:zap: MODERN TECH SOLUTIONS HR</h2>
+
+                <p>THE MODERN TECH SOLUTIONS</p>
+
+            </div>
+
+            <nav>
+
+                <a href="#">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-users"></i>
+                    Employees
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Payroll
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Time Off
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-clock"></i>
+                    Attendance
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+
+                <span class="dot"></span>
+
+                SYSTEM ONLINE
+
+            </div>
+
+            <button class="logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- ===================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================== -->
+
+    <main class="main-content">
+
+        <!-- TOP NAV -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Payroll Dashboard</h1>
+
+                <p>Manage employee salaries, bonuses and deductions.</p>
+
+            </div>
+
+            <div class="user-profile">
+
+                <div class="user-info">
+
+                    <h3>Lungile Moyo</h3>
+
+                    <small>HR Manager</small>
+
+                </div>
+
+                <div class="avatar">
+
+                    LM
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- SUMMARY -->
+
+        <section class="summary">
+
+            <div class="card employees">
+
+                <div class="card-top">
+
+                    <span>EMPLOYEES</span>
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <h2 id="employeeCount">0</h2>
+
+                <small>July 2025</small>
+
+            </div>
+
+            <div class="card gross">
+
+                <div class="card-top">
+
+                    <span>GROSS PAYROLL</span>
+
+                    <i class="fa-solid fa-money-bill-wave"></i>
+
+                </div>
+
+                <h2 id="grossSalary">R0</h2>
+
+                <small>Monthly Payroll</small>
+
+            </div>
+
+            <div class="card deduction">
+
+                <div class="card-top">
+
+                    <span>DEDUCTIONS</span>
+
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+
+                </div>
+
+                <h2 id="deductions">R0</h2>
+
+                <small>Total Deductions</small>
+
+            </div>
+
+            <div class="card net">
+
+                <div class="card-top">
+
+                    <span>NET PAYOUT</span>
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                </div>
+
+                <h2 id="netSalary">R0</h2>
+
+                <small>Final Salary</small>
+
+            </div>
+
+        </section>
+
+        <!-- FILTERS -->
+
+        <section class="filter-card">
+
+            <div class="filters">
+
+                <select id="month">
+
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option selected>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+
+                </select>
+
+                <select id="year">
+
+                    <option>2024</option>
+
+                    <option selected>2025</option>
+
+                    <option>2026</option>
+
+                </select>
+
+                <select id="statusFilter">
+                    <option value="All">All Statuses</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Processed">Processed</option>
+                </select>
+
+            </div>
+
+        </section>
+
+        <!-- TABLE -->
+
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>PAYROLL RECORDS</h2>
+
+                    <small id="recordCount">
+
+                        0 Records • July 2025
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Employee</th>
+
+                            <th>Base Salary</th>
+
+                            <th>Hours</th>
+
+                            <th>Overtime</th>
+
+                            <th>Bonus</th>
+
+                            <th>Deductions</th>
+
+                            <th>Net Salary</th>
+
+                            <th>Status</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="payrollTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- ===================================== -->
+<!-- PAYSLIP MODAL -->
+<!-- ===================================== -->
+
+<div class="modal" id="payslipModal">
+
+    <div class="modal-content">
+
+        <span class="close">&times;</span>
+
+        <h2>Digital Payslip</h2>
+
+        <hr>
+
+        <div id="payslipContent"></div>
+
+        <button id="downloadBtn">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download PDF
+
+        </button>
+
+    </div>
+
+</div>
+
+<script src="./assets/js/payroll.js"></script>
+
+</body>
+</html>

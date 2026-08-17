@@ -1,48 +1,129 @@
-# Modern Tech Solutions HR System — Combined Full-Stack Application
+# ⚡ Modern Tech Solutions HR Management System
 
-This combined project uses the Modern Tech Solutions frontend styling/UI with the HR System's Express + SQLite backend and JWT authentication.
+A modern Human Resource Management System (HRMS) for managing employees, payroll, attendance, and time-off requests.
 
-## Project structure
+The project combines the Modern Tech Solutions frontend interface with backend API functionality for managing HR data.
 
-- `backend/` — Express API, SQLite database, JWT authentication and CRUD routes.
-- `frontend/` — Modern Tech Solutions HTML/CSS/JavaScript UI.
-- `frontend/assets/js/app.js` — API-backed application logic.
-- `frontend/data/` — original static data files retained from the frontend project.
-- `backend/seed/` — database seed data used by the backend.
+---
 
-## Requirements
+## ✨ Features
 
-- Node.js 18+
-- npm
+### 🔐 Authentication
+- Login functionality
+- Session/authentication handling
+- Logout functionality
 
-## Run
+### 📊 Dashboard
+- Employee statistics
+- Payroll summary
+- Attendance overview
+- Pending time-off requests
+- Interactive charts
+- Recent activity
 
-1. Open a terminal in `backend/`.
-2. Install dependencies:
+### 👥 Employee Management
+- View employees
+- Search and filter employees
+- Add employees
+- Edit employee information
+- Delete employee records
 
-```bash
-npm install
-```
+### 💰 Payroll Management
+- View payroll records
+- Filter payroll information
+- Process payroll
+- View payslip information
 
-3. Copy `.env.example` to `.env`.
-4. Set `JWT_SECRET` in `.env`.
-5. Start the application:
+### 🗓 Time Off Management
+- Submit time-off requests
+- View requests
+- Filter requests by status
+- Approve requests
+- Reject requests
 
-```bash
-npm start
-```
+### ⏰ Attendance
+- View attendance records
+- Filter attendance data
+- Attendance statistics
+- Attendance charts
 
-6. Open `http://localhost:3000`.
+---
 
-## Demo login
+## 🛠 Technologies Used
 
-```txt
-username: admin
-password: admin123
-```
+- HTML5
+- CSS3
+- JavaScript
+- Node.js
+- Express
+- SQLite
+- JWT Authentication
+- JSON
+- SVG Charts
 
-The frontend calls the backend API for authentication and data operations. The SQLite database is created and seeded automatically on first startup.
+---
 
-## Important
+## 📁 Project Structure
 
-The original Modern Tech Solutions CSS and visible application text have been retained. The static frontend data is retained for reference, while the running application uses the backend API and SQLite database so CRUD operations persist correctly.
+```text
+Modern_Tech_Solutions/
+│
+├── assets/
+│   ├── css/
+│   │   ├── employees.css
+│   │   ├── payroll.css
+│   │   ├── styles.css
+│   │   └── timeoff.css
+│   │
+│   └── js/
+│       ├── app.js
+│       ├── embeddedData.js
+│       ├── employees.js
+│       ├── login.js
+│       ├── payroll.js
+│       └── timeoff.js
+│
+├── backend/
+│   ├── middleware/
+│   ├── routes/
+│   ├── db.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── data/
+│   ├── attendance-records.json
+│   ├── employee_info.json
+│   ├── employees.json
+│   ├── payroll-records.json
+│   ├── time-off-requests.json
+│   └── user.json
+│
+├── public/
+│   └── favicon.png
+│
+├── employees.html
+├── index.html
+├── login.html
+├── payroll.html
+├── timeoff.html
+└── vercel.json
+Username: admin
+Password: admin123
+---
+
+## 👨‍💻 Development Team
+
+This project was developed by the Modern Tech Solutions team:
+
+- **Imaan Abrahams**
+- **Maiesha Moohan**
+- **Muhammad Qasim Moos**
+- **Khanya Gcilitshane**
+
+The team collaborated on the design, development, frontend interface, HR management functionality, and application integration.
+
+---
+
+## 📄 License
+
+This project was created for educational and portfolio purposes.

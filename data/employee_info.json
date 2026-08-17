@@ -1,0 +1,104 @@
+{
+  "employeeInformation": [
+    {
+      "id": "EMP001",
+      "name": "Sibongile Nkosi",
+      "type": "Full-time",
+      "email": "sibongile.nkosi@moderntech.com",
+      "phone": "+27 11 123 4001",
+      "dept": "Development",
+      "role": "Software Engineer",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP002",
+      "name": "Lungile Moyo",
+      "type": "Full-time",
+      "email": "lungile.moyo@moderntech.com",
+      "phone": "+27 11 123 4002",
+      "dept": "HR",
+      "role": "HR Manager",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP003",
+      "name": "Thabo Molefe",
+      "type": "Full-time",
+      "email": "thabo.molefe@moderntech.com",
+      "phone": "+27 11 123 4003",
+      "dept": "QA",
+      "role": "Quality Analyst",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP004",
+      "name": "Keshav Naidoo",
+      "type": "Full-time",
+      "email": "keshav.naidoo@moderntech.com",
+      "phone": "+27 11 123 4004",
+      "dept": "Sales",
+      "role": "Sales Representative",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP005",
+      "name": "Zanele Khumalo",
+      "type": "Full-time",
+      "email": "zanele.khumalo@moderntech.com",
+      "phone": "+27 11 123 4005",
+      "dept": "Marketing",
+      "role": "Marketing Specialist",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP006",
+      "name": "Sipho Zulu",
+      "type": "Full-time",
+      "email": "sipho.zulu@moderntech.com",
+      "phone": "+27 11 123 4006",
+      "dept": "Design",
+      "role": "UI/UX Designer",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP007",
+      "name": "Naledi Moeketsi",
+      "type": "Full-time",
+      "email": "naledi.moeketsi@moderntech.com",
+      "phone": "+27 11 123 4007",
+      "dept": "IT",
+      "role": "DevOps Engineer",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP008",
+      "name": "Farai Gumbo",
+      "type": "Full-time",
+      "email": "farai.gumbo@moderntech.com",
+      "phone": "+27 11 123 4008",
+      "dept": "Marketing",
+      "role": "Content Strategist",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP009",
+      "name": "Karabo Dlamini",
+      "type": "Full-time",
+      "email": "karabo.dlamini@moderntech.com",
+      "phone": "+27 11 123 4009",
+      "dept": "Finance",
+      "role": "Accountant",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "EMP010",
+      "name": "Fatima Patel",
+      "type": "Full-time",
+      "email": "fatima.patel@moderntech.com",
+      "phone": "+27 11 123 4010",
+      "dept": "Support",
+      "role": "Customer Support Lead",
+      "status": "ACTIVE"
+    }
+  ]
+}
