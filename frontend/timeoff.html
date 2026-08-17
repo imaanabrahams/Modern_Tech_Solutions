@@ -1,0 +1,48 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">LEAVE REQUESTS</h1>
+      <p class="page-subtitle">Manage employee time-off</p>
+    </div>
+    <button id="new-leave-request" class="btn"><span id="new-request-icon"></span> NEW REQUEST</button>
+  </div>
+
+  <div class="grid grid-3" id="timeoff-stats">
+    <!-- Time-off stats will be injected here -->
+  </div>
+
+  <section class="card">
+    <div class="card-header">
+      <div class="page-header stack" style="animation:none">
+        <div>
+          <h2 class="card-title">ALL REQUESTS</h2>
+          <p class="card-desc" id="timeoff-count">0 records</p>
+        </div>
+        <div class="tabs" id="timeoff-tabs">
+          <!-- Tabs will be injected here -->
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Type</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Days</th>
+              <th>Reason</th>
+              <th>Status</th>
+              <th class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="timeoff-table-body">
+            <!-- Time-off requests will be injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>

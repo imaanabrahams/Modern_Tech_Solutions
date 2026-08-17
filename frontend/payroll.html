@@ -1,0 +1,67 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">PAYROLL ENGINE</h1>
+      <p class="page-subtitle">Process and generate payslips</p>
+    </div>
+  </div>
+
+  <div class="grid grid-4" id="payroll-stats">
+    <!-- Payroll stats will be injected here -->
+  </div>
+
+  <section class="card">
+    <div class="card-content pt">
+      <div class="filters">
+        <select id="payroll-month" class="select" style="max-width:220px">
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="April">April</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July" selected>July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
+        <select id="payroll-year" class="select" style="max-width:160px">
+          <option value="2024">2024</option>
+          <option value="2025" selected>2025</option>
+          <option value="2026">2026</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <h2 class="card-title">PAYROLL RECORDS</h2>
+      <p class="card-desc" id="payroll-period">0 records</p>
+    </div>
+    <div class="card-content">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Base Salary</th>
+              <th>Hours</th>
+              <th>Overtime</th>
+              <th>Bonus</th>
+              <th>Deductions</th>
+              <th>Net Salary</th>
+              <th>Status</th>
+              <th class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="payroll-table-body">
+            <!-- Payroll records will be injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
