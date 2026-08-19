@@ -1,22 +1,32 @@
 {
-  "name": "hr-system-backend",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Node.js/Express + SQLite backend for the Modern_Tech_Solutions HR Management System",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "seed": "node db.js --seed-only"
+    "seed": "node seed.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imaanabrahams/Modern_Tech_Solutions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/imaanabrahams/Modern_Tech_Solutions/issues"
+  },
+  "homepage": "https://github.com/imaanabrahams/Modern_Tech_Solutions#readme",
   "dependencies": {
-    "better-sqlite3": "^11.3.0",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2"
-  },
-  "engines": {
-    "node": ">=18"
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.23.3"
   }
 }
