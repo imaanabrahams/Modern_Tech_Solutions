@@ -94,7 +94,7 @@ const ui = {
   payrollMonth: "July",
   payrollYear: "2025",
   timeOffStatus: "all",
-  attendanceDate: "2025-06-02",
+  attendanceDate: "2025-07-27",
   attendanceStatus: "all",
   mobileMenuOpen: false,
 };
@@ -217,7 +217,7 @@ function weeklyAttendanceTrend(selectedDate) {
   const selected = dateKey(selectedDate);
   const mondayOffset = (selected.getUTCDay() + 6) % 7;
   selected.setUTCDate(selected.getUTCDate() - mondayOffset);
-  return ["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, index) => {
+  return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => {
     const current = new Date(selected);
     current.setUTCDate(selected.getUTCDate() + index);
     const date = current.toISOString().slice(0, 10);
@@ -918,6 +918,10 @@ function renderDashboard() {
   const todayPresent = state.attendanceRecords.filter(
     (r) => r.status === "present" || r.status === "late",
   ).length;
+  const attendanceTotal = state.attendanceRecords.length;
+  const presentRate = attendanceTotal
+    ? Math.round((todayPresent / attendanceTotal) * 100)
+    : 0;
   const totalPayroll = state.payrollRecords.reduce(
     (sum, p) => sum + p.netSalary,
     0,
@@ -940,9 +944,9 @@ function renderDashboard() {
       delay: 0,
     },
     {
-      label: "Today's Attendance",
+      label: "Present (Week)",
       value: todayPresent,
-      sub: `${((todayPresent / state.attendanceRecords.length) * 100 || 0).toFixed(0)}% present rate`,
+      sub: `${presentRate}% present rate`,
       iconName: "checkCircle",
       color: NEON_BLUE,
       delay: 80,
@@ -1898,7 +1902,7 @@ function renderAttendance() {
             <tbody>
               ${
                 filtered.length === 0
-                  ? `<tr><td colspan="6" class="no-records">// NO RECORDS FOR THIS DATE — TRY JUNE 2025</td></tr>`
+                  ? `<tr><td colspan="6" class="no-records">// NO RECORDS FOR THIS DATE — TRY 25–29 JULY 2025</td></tr>`
                   : filtered
                       .map((rec) => {
                         const emp = state.employees.find(
