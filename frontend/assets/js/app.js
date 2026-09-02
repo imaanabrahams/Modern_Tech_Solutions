@@ -1068,7 +1068,7 @@ function renderEmployees() {
 
   return `
     <div class="page">
-      ${pageHeader("EMPLOYEE DIRECTORY", "Manage employee records", `<button id="add-employee" class="btn">${icon("plus", 16)} ADD EMPLOYEE</button>`)}
+      ${pageHeader("EMPLOYEE DIRECTORY", "Manage employee records", `<div class="inline-row"><button id="add-employee" class="btn">${icon("plus", 16)} ADD EMPLOYEE</button><button id="pdf-employees" class="btn blue">${icon("download", 16)} PDF</button></div>`)}
 
       <section class="card">
         <div class="card-content pt">
@@ -1133,6 +1133,9 @@ function attachEmployeesEvents() {
   document
     .getElementById("add-employee")
     ?.addEventListener("click", () => openEmployeeModal());
+  document
+    .getElementById("pdf-employees")
+    ?.addEventListener("click", downloadEmployeesPDF);
   document.getElementById("employee-search")?.addEventListener("input", (e) => {
     ui.employeeSearch = e.target.value;
     render();
@@ -1369,7 +1372,7 @@ function renderPayroll() {
 
   return `
     <div class="page">
-      ${pageHeader("PAYROLL ENGINE", "Process and generate payslips")}
+      ${pageHeader("PAYROLL ENGINE", "Process and generate payslips", `<button id="pdf-payroll" class="btn blue">${icon("download", 16)} PDF</button>`)}
       <div class="grid grid-4">
         ${stats.map((s, i) => statCard({ ...s, sub: `${ui.payrollMonth} ${ui.payrollYear}`, delay: i * 70, payroll: true })).join("")}
       </div>
@@ -1426,6 +1429,9 @@ function renderPayroll() {
 }
 
 function attachPayrollEvents() {
+  document
+    .getElementById("pdf-payroll")
+    ?.addEventListener("click", downloadPayrollPDF);
   document.getElementById("payroll-month")?.addEventListener("change", (e) => {
     ui.payrollMonth = e.target.value;
     render();
@@ -1443,7 +1449,7 @@ function attachPayrollEvents() {
     );
   document.querySelectorAll("[data-download-payslip]").forEach((button) =>
     button.addEventListener("click", () => {
-      printPayslip(button.getAttribute("data-download-payslip"));
+      downloadPayslipPDF(button.getAttribute("data-download-payslip"));
     }),
   );
   document.querySelectorAll("[data-process-payroll]").forEach((button) =>
@@ -1521,7 +1527,7 @@ function openPayslip(id) {
   `);
   document
     .getElementById("download-current-payslip")
-    ?.addEventListener("click", () => printPayslip(id));
+    ?.addEventListener("click", () => downloadPayslipPDF(id));
 }
 
 function renderTimeOff() {
@@ -1555,7 +1561,7 @@ function renderTimeOff() {
 
   return `
     <div class="page">
-      ${pageHeader("LEAVE REQUESTS", "Manage employee time-off", `<button id="new-leave-request" class="btn">${icon("plus", 16)} NEW REQUEST</button>`)}
+      ${pageHeader("LEAVE REQUESTS", "Manage employee time-off", `<div class="inline-row"><button id="new-leave-request" class="btn">${icon("plus", 16)} NEW REQUEST</button><button id="pdf-timeoff" class="btn blue">${icon("download", 16)} PDF</button></div>`)}
       <div class="grid grid-3">
         ${stats.map((s, i) => statCard({ ...s, delay: i * 80, mini: true })).join("")}
       </div>
@@ -1608,6 +1614,9 @@ function renderTimeOff() {
 }
 
 function attachTimeOffEvents() {
+  document
+    .getElementById("pdf-timeoff")
+    ?.addEventListener("click", downloadTimeOffPDF);
   document
     .getElementById("new-leave-request")
     ?.addEventListener("click", openLeaveModal);
@@ -1899,7 +1908,7 @@ function renderAttendance() {
 function attachAttendanceEvents() {
   document
     .getElementById("export-attendance")
-    ?.addEventListener("click", () => printAttendanceReport());
+    ?.addEventListener("click", () => downloadAttendancePDF());
   document
     .getElementById("attendance-date")
     ?.addEventListener("change", (e) => {
@@ -2036,6 +2045,257 @@ function attendanceStatusIcon(status) {
   return `<span style="color:${color};display:inline-flex">${icon(name, 14)}</span>`;
 }
 
+function getDoc() {
+  if (typeof window.jspdf === "undefined") {
+    toast("PDF library failed to load. Check your connection.", "error");
+    return null;
+  }
+  const doc = new window.jspdf.jsPDF();
+  doc.setFontSize(8);
+  return doc;
+}
+
+function downloadEmployeesPDF() {
+  const doc = getDoc();
+  if (!doc) return;
+  doc.setFontSize(18);
+  doc.setTextColor(21, 34, 56);
+  doc.text("MODERN TECH SOLUTIONS", 14, 20);
+  doc.setFontSize(11);
+  doc.text("Employee Directory", 14, 28);
+  doc.setFontSize(9);
+  doc.text(`Generated: ${new Date().toLocaleString("en-ZA")}`, 14, 34);
+  doc.setFontSize(9);
+  doc.setTextColor(100);
+  doc.text(`${state.employees.length} employees on file`, 14, 40);
+
+  const rows = state.employees.map((emp) => [
+    emp.id,
+    `${emp.firstName} ${emp.lastName}`,
+    emp.email,
+    emp.department,
+    emp.position,
+    emp.status.toUpperCase(),
+  ]);
+  if (doc.autoTable) {
+    doc.autoTable({
+      startY: 46,
+      head: [["ID", "Name", "Email", "Department", "Position", "Status"]],
+      body: rows,
+      styles: { fontSize: 8, cellPadding: 2 },
+      headStyles: { fillColor: [21, 34, 56], textColor: 255, fontSize: 8 },
+      alternateRowStyles: { fillColor: [240, 247, 255] },
+      margin: { left: 14, right: 14 },
+    });
+  } else {
+    doc.text("(autoTable plugin missing; table omitted)", 14, 50);
+  }
+  doc.save("modern-tech-employees.pdf");
+  toast("Employee report downloaded!");
+}
+
+function downloadPayrollPDF() {
+  const doc = getDoc();
+  if (!doc) return;
+  const filtered = state.payrollRecords.filter(
+    (r) => r.month === ui.payrollMonth && r.year === parseInt(ui.payrollYear),
+  );
+  doc.setFontSize(18);
+  doc.setTextColor(21, 34, 56);
+  doc.text("MODERN TECH SOLUTIONS", 14, 20);
+  doc.setFontSize(11);
+  doc.text(`Payroll Report - ${ui.payrollMonth} ${ui.payrollYear}`, 14, 28);
+  doc.setFontSize(9);
+  doc.text(`Generated: ${new Date().toLocaleString("en-ZA")}`, 14, 34);
+  doc.setFontSize(9);
+  doc.setTextColor(100);
+  doc.text(`${filtered.length} records`, 14, 40);
+
+  const money = (n) =>
+    `R ${Number(n || 0).toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const rows = filtered.map((rec) => [
+    rec.employeeId,
+    rec.employeeName,
+    money(rec.baseSalary),
+    `${rec.hoursWorked}h`,
+    `${rec.overtimeHours}h`,
+    money(rec.bonus),
+    money(rec.deductions),
+    money(rec.netSalary),
+    rec.status.toUpperCase(),
+  ]);
+  if (doc.autoTable) {
+    doc.autoTable({
+      startY: 46,
+      head: [["ID", "Employee", "Base Salary", "Hours", "OT", "Bonus", "Deductions", "Net Salary", "Status"]],
+      body: rows,
+      styles: { fontSize: 8, cellPadding: 2 },
+      headStyles: { fillColor: [21, 34, 56], textColor: 255, fontSize: 8 },
+      alternateRowStyles: { fillColor: [240, 247, 255] },
+      margin: { left: 14, right: 14 },
+    });
+  } else {
+    doc.text("(autoTable plugin missing; table omitted)", 14, 50);
+  }
+  doc.save("modern-tech-payroll.pdf");
+  toast("Payroll report downloaded!");
+}
+
+function downloadTimeOffPDF() {
+  const doc = getDoc();
+  if (!doc) return;
+  const filtered = state.timeOffRequests.filter(
+    (r) => ui.timeOffStatus === "all" || r.status === ui.timeOffStatus,
+  );
+  doc.setFontSize(18);
+  doc.setTextColor(21, 34, 56);
+  doc.text("MODERN TECH SOLUTIONS", 14, 20);
+  doc.setFontSize(11);
+  doc.text("Time Off Leave Report", 14, 28);
+  doc.setFontSize(9);
+  doc.text(`Generated: ${new Date().toLocaleString("en-ZA")}`, 14, 34);
+  doc.setFontSize(9);
+  doc.setTextColor(100);
+  doc.text(`${filtered.length} requests (filter: ${ui.timeOffStatus})`, 14, 40);
+
+  const rows = filtered.map((req) => [
+    req.id,
+    req.employeeName,
+    req.type.toUpperCase(),
+    new Date(req.startDate).toLocaleDateString("en-ZA"),
+    new Date(req.endDate).toLocaleDateString("en-ZA"),
+    String(req.days),
+    req.status.toUpperCase(),
+  ]);
+  if (doc.autoTable) {
+    doc.autoTable({
+      startY: 46,
+      head: [["ID", "Employee", "Type", "Start", "End", "Days", "Status"]],
+      body: rows,
+      styles: { fontSize: 8, cellPadding: 2 },
+      headStyles: { fillColor: [21, 34, 56], textColor: 255, fontSize: 8 },
+      alternateRowStyles: { fillColor: [240, 247, 255] },
+      margin: { left: 14, right: 14 },
+    });
+  } else {
+    doc.text("(autoTable plugin missing; table omitted)", 14, 50);
+  }
+  doc.save("modern-tech-timeoff.pdf");
+  toast("Time off report downloaded!");
+}
+
+function downloadAttendancePDF() {
+  const doc = getDoc();
+  if (!doc) return;
+  const filtered = state.attendanceRecords.filter(
+    (r) =>
+      r.date === ui.attendanceDate &&
+      (ui.attendanceStatus === "all" || r.status === ui.attendanceStatus),
+  );
+  doc.setFontSize(18);
+  doc.setTextColor(21, 34, 56);
+  doc.text("MODERN TECH SOLUTIONS", 14, 20);
+  doc.setFontSize(11);
+  doc.text(`Attendance Report - ${ui.attendanceDate}`, 14, 28);
+  doc.setFontSize(9);
+  doc.text(`Generated: ${new Date().toLocaleString("en-ZA")}`, 14, 34);
+  doc.setFontSize(9);
+  doc.setTextColor(100);
+  doc.text(`${filtered.length} records`, 14, 40);
+
+  const rows = filtered.map((rec) => [
+    rec.employeeId,
+    rec.employeeName,
+    rec.checkIn,
+    rec.checkOut,
+    String(rec.hoursWorked),
+    rec.status.toUpperCase(),
+  ]);
+  if (doc.autoTable) {
+    doc.autoTable({
+      startY: 46,
+      head: [["ID", "Employee", "Check In", "Check Out", "Hours", "Status"]],
+      body: rows,
+      styles: { fontSize: 8, cellPadding: 2 },
+      headStyles: { fillColor: [21, 34, 56], textColor: 255, fontSize: 8 },
+      alternateRowStyles: { fillColor: [240, 247, 255] },
+      margin: { left: 14, right: 14 },
+    });
+  } else {
+    doc.text("(autoTable plugin missing; table omitted)", 14, 50);
+  }
+  doc.save("modern-tech-attendance.pdf");
+  toast("Attendance report downloaded!");
+}
+
+function downloadPayslipPDF(id) {
+  const doc = getDoc();
+  if (!doc) return;
+  const rec = state.payrollRecords.find((r) => r.id === id);
+  if (!rec) return;
+  const emp = state.employees.find((e) => e.id === rec.employeeId);
+  const overtimePay = rec.overtimeHours * Math.round(rec.baseSalary / 160);
+  const grossEarnings = rec.baseSalary + rec.bonus + overtimePay;
+  const paye = Number((rec.deductions * 0.6).toFixed(2));
+  const uif = Number((rec.deductions * 0.2).toFixed(2));
+  const medical = Number((rec.deductions * 0.15).toFixed(2));
+  const retirement = Number((rec.deductions * 0.05).toFixed(2));
+  const money = (n) =>
+    `R ${Number(n || 0).toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+  doc.setFontSize(18);
+  doc.setTextColor(21, 34, 56);
+  doc.text("MODERN TECH SOLUTIONS", 14, 20);
+  doc.setFontSize(11);
+  doc.text(`EMPLOYEE PAYSLIP - ${rec.month.toUpperCase()} ${rec.year}`, 14, 28);
+  doc.setFontSize(9);
+  doc.setDrawColor(21, 34, 56);
+  doc.line(14, 32, 196, 32);
+  doc.text(`Employee: ${rec.employeeName}`, 14, 40);
+  doc.text(`Employee ID: ${rec.employeeId}`, 14, 46);
+  doc.text(`Department: ${emp?.department || "N/A"}`, 14, 52);
+  doc.text(`Position: ${emp?.position || "N/A"}`, 14, 58);
+  doc.text(`Generated: ${new Date().toLocaleString("en-ZA")}`, 14, 64);
+
+  doc.setFontSize(11);
+  doc.setTextColor(0, 150, 0);
+  doc.text("EARNINGS", 14, 74);
+  doc.setTextColor(21, 34, 56);
+  doc.setFontSize(9);
+  doc.text(`Base Salary: ${money(rec.baseSalary)}`, 14, 80);
+  doc.text(`Bonus: ${money(rec.bonus)}`, 14, 86);
+  doc.text(`Overtime (${rec.overtimeHours}h): ${money(overtimePay)}`, 14, 92);
+  doc.setFont(undefined, "bold");
+  doc.text(`GROSS EARNINGS: ${money(grossEarnings)}`, 14, 100);
+  doc.setFont(undefined, "normal");
+
+  doc.setFontSize(11);
+  doc.setTextColor(200, 40, 40);
+  doc.text("DEDUCTIONS", 14, 110);
+  doc.setTextColor(21, 34, 56);
+  doc.setFontSize(9);
+  doc.text(`PAYE (Income Tax): ${money(paye)}`, 14, 116);
+  doc.text(`UIF: ${money(uif)}`, 14, 122);
+  doc.text(`Medical Aid: ${money(medical)}`, 14, 128);
+  doc.text(`Retirement Fund: ${money(retirement)}`, 14, 134);
+  doc.setFont(undefined, "bold");
+  doc.text(`TOTAL DEDUCTIONS: -${money(rec.deductions)}`, 14, 142);
+  doc.setFont(undefined, "normal");
+
+  doc.setFontSize(13);
+  doc.setTextColor(0, 150, 0);
+  doc.setFont(undefined, "bold");
+  doc.text(`NET SALARY: ${money(rec.netSalary)}`, 14, 154);
+  doc.setFont(undefined, "normal");
+
+  doc.setFontSize(8);
+  doc.setTextColor(120);
+  doc.text("Computer-generated payslip", 14, 170);
+
+  doc.save(`payslip-${rec.employeeId}-${rec.month}-${rec.year}.pdf`);
+  toast(`Payslip for ${rec.employeeName} downloaded!`);
+}
+
 function lineChart(data, series, xKey) {
   const width = 560,
     height = 240,
@@ -2145,7 +2405,7 @@ function pieChart(data, nameKey, valueKey, colorMap = null) {
     label: `${d[nameKey]} (${d[valueKey]})`,
     color: colorMap?.[d[nameKey]] || CHART_COLORS[i % CHART_COLORS.length],
   }));
-  return `<svg class="chart-svg" viewBox="0 0 240 220">${paths}<circle cx="${cx}" cy="${cy}" r="${inner - 4}" fill="#0a0a1e"/></svg>${legend(items)}`;
+  return `<svg class="chart-svg" viewBox="0 0 240 220">${paths}<circle class="chart-donut-hole" cx="${cx}" cy="${cy}" r="${inner - 4}"/></svg>${legend(items)}`;
 }
 function polar(cx, cy, r, angle) {
   const rad = ((angle - 90) * Math.PI) / 180;
