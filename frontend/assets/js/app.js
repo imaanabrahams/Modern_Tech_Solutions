@@ -929,7 +929,18 @@ function renderDashboard() {
   const departments = countBy(state.employees, "department").map(
     ([name, count]) => ({ name, count }),
   );
-  const attendanceTrend = monthlyAttendanceTrend();
+  const weeklyTrend = weeklyAttendanceTrend(
+    state.attendanceRecords.length
+      ? state.attendanceRecords[0].date
+      : ui.attendanceDate,
+  ).map((d) => {
+    const total = d.present + d.absent + d.late;
+    return {
+      day: d.day,
+      present: total ? Math.round(((d.present + d.late) / total) * 100) : 0,
+      absent: total ? Math.round((d.absent / total) * 100) : 0,
+    };
+  });
   const timeOffTypes = countBy(state.timeOffRequests, "type").map(
     ([name, value]) => ({ name, value }),
   );
@@ -1003,14 +1014,14 @@ function renderDashboard() {
 
       <div class="grid charts-grid">
         <section class="neon-card" style="border-color:${NEON_GREEN}20">
-          ${sectionHeader("ATTENDANCE TREND", "Monthly presence rate")}
+          ${sectionHeader("ATTENDANCE TREND", "Weekly presence rate")}
           <div class="chart-area">${lineChart(
-            attendanceTrend,
+            weeklyTrend,
             [
               { key: "present", label: "Present %", color: NEON_GREEN },
               { key: "absent", label: "Absent %", color: NEON_RED },
             ],
-            "month",
+            "day",
           )}</div>
         </section>
         <section class="neon-card" style="border-color:${NEON_BLUE}20">
@@ -1072,7 +1083,7 @@ function renderEmployees() {
 
   return `
     <div class="page">
-      ${pageHeader("EMPLOYEE DIRECTORY", "Manage employee records", `<div class="inline-row"><button id="add-employee" class="btn">${icon("plus", 16)} ADD EMPLOYEE</button><button id="pdf-employees" class="btn blue">${icon("download", 16)} PDF</button></div>`)}
+      ${pageHeader("EMPLOYEE DIRECTORY", "Manage employee records", `<button id="add-employee" class="btn">${icon("plus", 16)} ADD EMPLOYEE</button>`)}
 
       <section class="card">
         <div class="card-content pt">
@@ -1137,9 +1148,6 @@ function attachEmployeesEvents() {
   document
     .getElementById("add-employee")
     ?.addEventListener("click", () => openEmployeeModal());
-  document
-    .getElementById("pdf-employees")
-    ?.addEventListener("click", downloadEmployeesPDF);
   document.getElementById("employee-search")?.addEventListener("input", (e) => {
     ui.employeeSearch = e.target.value;
     render();
@@ -2075,45 +2083,6 @@ function getDoc() {
   const doc = new window.jspdf.jsPDF();
   doc.setFontSize(8);
   return doc;
-}
-
-function downloadEmployeesPDF() {
-  const doc = getDoc();
-  if (!doc) return;
-  doc.setFontSize(18);
-  doc.setTextColor(21, 34, 56);
-  doc.text("MODERN TECH SOLUTIONS", 14, 20);
-  doc.setFontSize(11);
-  doc.text("Employee Directory", 14, 28);
-  doc.setFontSize(9);
-  doc.text(`Generated: ${new Date().toLocaleString("en-ZA")}`, 14, 34);
-  doc.setFontSize(9);
-  doc.setTextColor(100);
-  doc.text(`${state.employees.length} employees on file`, 14, 40);
-
-  const rows = state.employees.map((emp) => [
-    emp.id,
-    `${emp.firstName} ${emp.lastName}`,
-    emp.email,
-    emp.department,
-    emp.position,
-    emp.status.toUpperCase(),
-  ]);
-  if (doc.autoTable) {
-    doc.autoTable({
-      startY: 46,
-      head: [["ID", "Name", "Email", "Department", "Position", "Status"]],
-      body: rows,
-      styles: { fontSize: 8, cellPadding: 2 },
-      headStyles: { fillColor: [21, 34, 56], textColor: 255, fontSize: 8 },
-      alternateRowStyles: { fillColor: [240, 247, 255] },
-      margin: { left: 14, right: 14 },
-    });
-  } else {
-    doc.text("(autoTable plugin missing; table omitted)", 14, 50);
-  }
-  doc.save("modern-tech-employees.pdf");
-  toast("Employee report downloaded!");
 }
 
 function downloadPayrollPDF() {
