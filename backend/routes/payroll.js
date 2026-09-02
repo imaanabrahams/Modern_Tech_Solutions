@@ -17,7 +17,12 @@ router.get("/:id", requireAuth, getPayrollById);
 router.get("/employee/:employeeId", requireAuth, getPayrollByEmployee);
 router.get("/month-year/query", requireAuth, getPayrollByMonthYear);
 router.post("/", requireAuth, createPayroll);
+router.put("/:id/process", requireAuth, (req, res, next) => {
+  req.body = { ...req.body, status: "processing" };
+  updatePayroll(req, res, next);
+});
 router.put("/:id", requireAuth, updatePayroll);
+router.patch("/:id", requireAuth, updatePayroll);
 router.delete("/:id", requireAuth, deletePayroll);
 
 export default router;

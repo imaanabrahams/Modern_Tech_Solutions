@@ -32,7 +32,7 @@ npm install
 npm start
 ```
 
-6. Open `http://localhost:3000`.
+6. Open `http://localhost:5000`.
 
 ## Demo login
 

@@ -18,6 +18,7 @@ router.get("/employee/:employeeId", requireAuth, getAttendanceByEmployee);
 router.get("/range/query", requireAuth, getAttendanceByDateRange);
 router.post("/", requireAuth, createAttendance);
 router.put("/:id", requireAuth, updateAttendance);
+router.patch("/:id", requireAuth, updateAttendance);
 router.delete("/:id", requireAuth, deleteAttendance);
 
 export default router;

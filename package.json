@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

@@ -1,4 +1,5 @@
 import TimeOff from "../models/TimeOff.js";
+import Employee from "../models/Employee.js";
 import { DEMO_TIMEOFF, isDbUnavailableError } from "../demoData.js";
 
 const VALID_TYPES = [
@@ -153,9 +154,14 @@ export const createTimeOff = async (req, res) => {
       return res.status(400).json({ error: "Days must be a positive number." });
     }
 
+    const employee = await Employee.findById(employeeId);
+    if (!employee) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+
     const id = await TimeOff.create({
       employeeId,
-      employeeName: employeeName || "Unknown",
+      employeeName: `${employee.first_name} ${employee.last_name}`,
       type,
       startDate,
       endDate,

@@ -10,8 +10,9 @@ import attendanceRoutes from "./routes/attendance.js";
 import employeesRoutes from "./routes/employees.js";
 import payrollRoutes from "./routes/payroll.js";
 import timeoffRoutes from "./routes/timeoff.js";
+import { checkDatabaseConnection } from "./config/db.js";
 
-dotenv.config();
+dotenv.config({ override: true });
 
 const app = express();
 
@@ -49,6 +50,14 @@ app.get(/^(?!\/api).*/, (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Modern Tech Solutions backend running on port ${PORT}`);
+  try {
+    await checkDatabaseConnection();
+    console.log("Database connected successfully.");
+  } catch (error) {
+    console.warn(
+      `Database unavailable at ${process.env.DB_HOST || "localhost"}:${process.env.DB_PORT || 3306} (${error.code || error.message}). Read-only demo data is enabled; employee changes require MySQL to be running and configured in backend/.env.`,
+    );
+  }
 });

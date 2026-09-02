@@ -3,15 +3,26 @@ import { DEMO_ATTENDANCE, isDbUnavailableError } from "../demoData.js";
 
 const VALID_STATUS = ["present", "absent", "late", "excused"];
 
+function dateOnly(value) {
+  if (typeof value === "string") return value.slice(0, 10);
+  if (value instanceof Date) {
+    const year = value.getFullYear();
+    const month = String(value.getMonth() + 1).padStart(2, "0");
+    const day = String(value.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+  return value;
+}
+
 function toApi(row) {
   return {
     id: row.id,
     employeeId: row.employee_id,
     employeeName: row.employee_name,
-    date: row.date,
+    date: dateOnly(row.date),
     checkIn: row.check_in,
     checkOut: row.check_out,
-    hoursWorked: row.hours_worked,
+    hoursWorked: Number(row.hours_worked || 0),
     status: row.status,
   };
 }
