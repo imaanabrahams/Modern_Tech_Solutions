@@ -11,7 +11,7 @@ const CHART_COLORS = [NEON_GREEN, NEON_BLUE, NEON_PURPLE, NEON_GOLD, NEON_RED];
 const API_BASE =
   window.API_BASE ||
   (location.port === "5000" ? `${location.origin}/api` : "http://localhost:5000/api");
-const MOCK_AUTH = false; // Use the real backend API instead of mock demo data
+const MOCK_AUTH = true; // Static/demo mode: uses embedded data, no backend needed for GitHub Pages
 
 // Mock JWT generation (client-side authentication)
 function generateMockJWT(payload) {
@@ -27,7 +27,7 @@ const templates = {};
 async function loadTemplate(name) {
   if (!templates[name]) {
     try {
-      const response = await fetch(`./${name}.html`);
+      const response = await fetch(`./frontend/${name}.html`);
       templates[name] = await response.text();
     } catch (error) {
       console.error(`Failed to load template ${name}.html:`, error);
@@ -1162,7 +1162,7 @@ function attachEmployeesEvents() {
       )
         return;
       try {
-        await api(`/employees/${id}`, { method: "DELETE" });
+        if (!MOCK_AUTH) await api(`/employees/${id}`, { method: "DELETE" });
         state.employees = state.employees.filter((emp) => emp.id !== id);
         state.payrollRecords = state.payrollRecords.filter(
           (r) => r.employeeId !== id,
@@ -1279,19 +1279,28 @@ function openEmployeeModal(id = null) {
 
       try {
         if (employee) {
-          const updated = await api(`/employees/${employee.id}`, {
-            method: "PUT",
-            body: JSON.stringify(values),
-          });
+          const updated = MOCK_AUTH
+            ? { ...employee, ...values }
+            : await api(`/employees/${employee.id}`, {
+                method: "PUT",
+                body: JSON.stringify(values),
+              });
           state.employees = state.employees.map((emp) =>
             emp.id === employee.id ? updated : emp,
           );
           toast("Employee updated!");
         } else {
-          const created = await api("/employees", {
-            method: "POST",
-            body: JSON.stringify(values),
-          });
+          const created = MOCK_AUTH
+            ? {
+                ...values,
+                id: `EMP${String(state.employees.length + 1).padStart(3, "0")}`,
+                status: values.status || "active",
+                hireDate: values.hireDate,
+              }
+            : await api("/employees", {
+                method: "POST",
+                body: JSON.stringify(values),
+              });
           state.employees.push(created);
           toast("Employee added!");
         }
@@ -1456,7 +1465,9 @@ function attachPayrollEvents() {
     button.addEventListener("click", async () => {
       const id = button.getAttribute("data-process-payroll");
       try {
-        const updated = await api(`/payroll/${id}/process`, { method: "PUT" });
+        const updated = MOCK_AUTH
+          ? { ...state.payrollRecords.find((r) => r.id === id), status: "processed" }
+          : await api(`/payroll/${id}/process`, { method: "PUT" });
         state.payrollRecords = state.payrollRecords.map((r) =>
           r.id === id ? updated : r,
         );
@@ -1630,7 +1641,9 @@ function attachTimeOffEvents() {
     button.addEventListener("click", async () => {
       const id = button.getAttribute("data-approve-request");
       try {
-        const updated = await api(`/timeoff/${id}/approve`, { method: "PUT" });
+        const updated = MOCK_AUTH
+          ? { ...state.timeOffRequests.find((r) => r.id === id), status: "approved" }
+          : await api(`/timeoff/${id}/approve`, { method: "PUT" });
         state.timeOffRequests = state.timeOffRequests.map((r) =>
           r.id === id ? updated : r,
         );
@@ -1645,7 +1658,9 @@ function attachTimeOffEvents() {
     button.addEventListener("click", async () => {
       const id = button.getAttribute("data-reject-request");
       try {
-        const updated = await api(`/timeoff/${id}/reject`, { method: "PUT" });
+        const updated = MOCK_AUTH
+          ? { ...state.timeOffRequests.find((r) => r.id === id), status: "rejected" }
+          : await api(`/timeoff/${id}/reject`, { method: "PUT" });
         state.timeOffRequests = state.timeOffRequests.map((r) =>
           r.id === id ? updated : r,
         );
@@ -1748,16 +1763,19 @@ function openLeaveModal() {
         const selectedEmployee = state.employees.find(
           (employee) => employee.id === values.employeeId,
         );
-        const created = await api("/timeoff", {
-          method: "POST",
-          body: JSON.stringify({
-            ...values,
-            employeeName: selectedEmployee
-              ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}`
-              : undefined,
-            days: calcDays(values.startDate, values.endDate),
-          }),
-        });
+        const payload = {
+          ...values,
+          employeeName: selectedEmployee
+            ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}`
+            : undefined,
+          days: calcDays(values.startDate, values.endDate),
+        };
+        const created = MOCK_AUTH
+          ? { ...payload, id: `REQ${String(state.timeOffRequests.length + 1).padStart(3, "0")}`, status: "pending" }
+          : await api("/timeoff", {
+              method: "POST",
+              body: JSON.stringify(payload),
+            });
         state.timeOffRequests.unshift(created);
         toast("Leave request submitted!");
         closeModal();
