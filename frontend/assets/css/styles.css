@@ -42,6 +42,7 @@
   --modal-bg: #0a0a1e;
   --modal-border: rgba(57, 255, 20, 0.22);
   --modal-shadow: 0 25px 80px rgba(0, 0, 0, 0.55), 0 0 35px rgba(57, 255, 20, 0.08);
+  --tabs-bg: rgba(15, 15, 40, 0.7);
   
   --radius: 8px;
   --font-orbitron: 'Orbitron', sans-serif;
@@ -83,6 +84,7 @@
   --modal-bg: #ffffff;
   --modal-border: rgba(57, 255, 20, 0.25);
   --modal-shadow: 0 25px 80px rgba(0, 0, 0, 0.1), 0 0 35px rgba(57, 255, 20, 0.12);
+  --tabs-bg: rgba(0, 0, 0, 0.04);
 }
 
 * { box-sizing: border-box; }
@@ -309,7 +311,7 @@ a { color: inherit; text-decoration: none; }
 table { width:100%; border-collapse:collapse; min-width:780px; }
 th { text-align:left; padding:12px; color:var(--muted); font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; font-weight:500; text-transform:uppercase; border-bottom:1px solid rgba(57,255,20,.12); }
 td { padding:12px; border-bottom:1px solid rgba(57,255,20,.08); vertical-align:middle; }
-tr:hover td { background:rgba(15,15,40,.35); }
+tr:hover td { background:var(--table-hover); }
 td.right, th.right { text-align:right; }
 .no-records { text-align:center; padding:40px!important; font-family:var(--font-mono); font-size:12px; color:var(--muted); }
 .primary-text { font-weight:600; font-size:14px; color:var(--foreground); }
@@ -324,7 +326,7 @@ td.right, th.right { text-align:right; }
 #theme-toggle:hover { background:rgba(255,215,0,.12); border-color:rgba(255,215,0,.4); box-shadow:0 0 8px rgba(255,215,0,.15); }
 .inline-row { display:flex; align-items:center; gap:6px; }
 .truncate { max-width:240px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.tabs { display:flex; flex-wrap:wrap; gap:4px; padding:4px; border:1px solid rgba(57,255,20,.12); background:rgba(15,15,40,.7); border-radius:7px; }
+.tabs { display:flex; flex-wrap:wrap; gap:4px; padding:4px; border:1px solid rgba(57,255,20,.12); background:var(--tabs-bg); border-radius:7px; }
 .tab { border:0; border-radius:5px; background:transparent; color:var(--muted); padding:7px 10px; font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; transition:.2s; }
 .tab.active { background:rgba(57,255,20,.12); color:var(--neon-green); box-shadow:0 0 10px rgba(57,255,20,.08); }
 .info-box { padding:12px; border-radius:6px; background:rgba(0,212,255,.08); border:1px solid rgba(0,212,255,.2); font-family:var(--font-mono); font-size:11px; color:var(--neon-blue); }
