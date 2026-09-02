@@ -78,6 +78,7 @@ const NAV_ITEMS = [
   { path: "payroll", label: "Payroll", icon: "dollar" },
   { path: "time-off", label: "Time Off", icon: "calendar" },
   { path: "attendance", label: "Attendance", icon: "clipboard" },
+  { path: "performance-reviews", label: "Performance", icon: "star" },
 ];
 
 const state = {
@@ -85,6 +86,7 @@ const state = {
   timeOffRequests: [],
   attendanceRecords: [],
   payrollRecords: [],
+  performanceReviews: [],
   user: null,
 };
 
@@ -166,6 +168,7 @@ function icon(name, size = 16, extra = "") {
     activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
     sun: '<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>',
     moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    star: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
   };
   return `<svg ${attrs}>${paths[name] || paths.activity}</svg>`;
 }
@@ -838,6 +841,7 @@ function renderPage(current) {
     payroll: renderPayroll,
     "time-off": renderTimeOff,
     attendance: renderAttendance,
+    "performance-reviews": renderPerformanceReviews,
   };
   return map[current]?.() || renderDashboard();
 }
@@ -1808,6 +1812,265 @@ function calcDays(start, end) {
   );
 }
 
+function perfReviewStatusColor(status) {
+  if (status === "completed") return NEON_GREEN;
+  if (status === "pending") return NEON_GOLD;
+  return NEON_BLUE;
+}
+
+function getPerformanceReviews() {
+  if (state.performanceReviews.length) return state.performanceReviews;
+  try {
+    const stored = localStorage.getItem("modern-tech-performance-reviews");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length) {
+        state.performanceReviews = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  state.performanceReviews = [
+    {
+      id: "PERF001",
+      employeeName: "Lerato Molefe",
+      reviewer: "HR Manager",
+      reviewDate: "2025-06-15",
+      rating: 4.7,
+      status: "completed",
+      summary:
+        "Delivered strong Q2 results and maintained excellent stakeholder communication.",
+      goals: "Lead onboarding initiatives\nImprove reporting cadence",
+    },
+    {
+      id: "PERF002",
+      employeeName: "Thabo Ndlovu",
+      reviewer: "Operations Lead",
+      reviewDate: "2025-07-20",
+      rating: 4.2,
+      status: "pending",
+      summary: "Consistent execution and strong ownership of team tasks.",
+      goals: "Strengthen delegation skills\nComplete leadership course",
+    },
+    {
+      id: "PERF003",
+      employeeName: "Aisha Khan",
+      reviewer: "Department Head",
+      reviewDate: "2025-08-05",
+      rating: 4.5,
+      status: "scheduled",
+      summary: "High quality delivery with strong attention to detail.",
+      goals: "Expand client-facing responsibilities\nMentor junior team members",
+    },
+  ];
+  return state.performanceReviews;
+}
+
+function savePerformanceReviews() {
+  try {
+    localStorage.setItem(
+      "modern-tech-performance-reviews",
+      JSON.stringify(state.performanceReviews),
+    );
+  } catch {
+    /* ignore */
+  }
+}
+
+function renderPerformanceReviews() {
+  const reviews = getPerformanceReviews();
+  const total = reviews.length;
+  const avg = total
+    ? (reviews.reduce((s, r) => s + Number(r.rating), 0) / total).toFixed(1)
+    : "0.0";
+  const pending = reviews.filter((r) => r.status === "pending").length;
+  const completed = reviews.filter((r) => r.status === "completed").length;
+  const stats = [
+    {
+      label: "TOTAL REVIEWS",
+      value: total,
+      iconName: "fileText",
+      color: NEON_GREEN,
+      sub: "Evaluations tracked",
+    },
+    {
+      label: "AVERAGE RATING",
+      value: avg,
+      iconName: "star",
+      color: NEON_GOLD,
+      sub: "Across current reviews",
+    },
+    {
+      label: "PENDING",
+      value: pending,
+      iconName: "clock",
+      color: NEON_PURPLE,
+      sub: "Awaiting feedback",
+    },
+    {
+      label: "COMPLETED",
+      value: completed,
+      iconName: "checkCircle",
+      color: NEON_BLUE,
+      sub: "Finalized reviews",
+    },
+  ];
+
+  const ratingData = [1, 2, 3, 4, 5].map((n) => ({
+    name: `${n}★`,
+    value: reviews.filter((r) => Math.round(Number(r.rating)) === n).length,
+  }));
+
+  return `
+    <div class="page">
+      ${pageHeader("PERFORMANCE REVIEWS", "Track evaluations and employee growth", `<button id="new-review" class="btn">${icon("plus", 16)} NEW REVIEW</button>`)}
+      <div class="grid grid-4">
+        ${stats.map((s, i) => statCard({ ...s, delay: i * 70, mini: true })).join("")}
+      </div>
+      <div class="grid charts-grid">
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">RATING DISTRIBUTION</h2><p class="card-desc">Reviews by rating</p></div>
+          <div class="card-content">${pieChart(ratingData, "name", "value")}</div>
+        </section>
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">RECENT REVIEWS</h2><p class="card-desc">Latest evaluations</p></div>
+          <div class="card-content">
+            <div class="table-wrap"><table>
+              <thead><tr><th>Employee</th><th>Reviewer</th><th>Date</th><th>Rating</th><th>Status</th><th class="right">Actions</th></tr></thead>
+              <tbody>
+                ${
+                  reviews.length === 0
+                    ? `<tr><td colspan="6" class="no-records">// NO REVIEWS FOUND</td></tr>`
+                    : reviews
+                        .slice()
+                        .reverse()
+                        .map(
+                          (r) => `<tr>
+                    <td><div class="primary-text">${escapeHtml(r.employeeName)}</div><div class="meta-text">${escapeHtml(r.reviewer)}</div></td>
+                    <td style="font-size:13px;color:${NEON_BLUE}">${escapeHtml(r.reviewer)}</td>
+                    <td class="mono-cell" style="color:#9ca3af">${escapeHtml(r.reviewDate)}</td>
+                    <td><span style="color:${NEON_GOLD};font-weight:600">★ ${Number(r.rating).toFixed(1)}</span></td>
+                    <td>${badge(r.status.toUpperCase(), perfReviewStatusColor(r.status))}</td>
+                    <td class="right"><div class="actions">
+                      <button class="icon-btn" data-edit-review="${escapeHtml(r.id)}" style="color:${NEON_BLUE}" aria-label="Edit review">${icon("edit", 14)}</button>
+                      <button class="icon-btn" data-delete-review="${escapeHtml(r.id)}" style="color:${NEON_RED}" aria-label="Delete review">${icon("trash", 14)}</button>
+                    </div></td>
+                  </tr>`,
+                        )
+                        .join("")
+                }
+              </tbody>
+            </table></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+function openReviewModal(id = null) {
+  const review = id
+    ? state.performanceReviews.find((r) => r.id === id)
+    : null;
+  const employeeOptions = state.employees
+    .map(
+      (e) =>
+        `<option value="${escapeHtml(`${e.firstName} ${e.lastName}`)}">${escapeHtml(`${e.firstName} ${e.lastName}`)}</option>`,
+    )
+    .join("");
+  showModal(
+    `
+    <form id="review-form" class="modal-form">
+      <h3 class="modal-title">${review ? "EDIT REVIEW" : "NEW REVIEW"}</h3>
+      <div class="form-row">
+        <label class="label" for="rv-employee">EMPLOYEE</label>
+        <select id="rv-employee" name="employeeName" class="input select-search">${employeeOptions || `<option value="">Select employee</option>`}</select>
+      </div>
+      <div class="form-row">
+        <label class="label" for="rv-reviewer">REVIEWER</label>
+        <input id="rv-reviewer" name="reviewer" class="input" value="${escapeHtml(review?.reviewer ?? "")}" required />
+      </div>
+      <div class="form-row">
+        <label class="label" for="rv-date">REVIEW DATE</label>
+        <input id="rv-date" name="reviewDate" type="date" class="input" value="${escapeHtml(review?.reviewDate ?? "")}" required />
+      </div>
+      <div class="form-row">
+        <label class="label" for="rv-rating">RATING</label>
+        <select id="rv-rating" name="rating" class="select">
+          ${[5, 4.5, 4, 3.5, 3].map((n) => `<option value="${n}" ${String(review?.rating) === String(n) ? "selected" : ""}>${n} / 5</option>`).join("")}
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="label" for="rv-status">STATUS</label>
+        <select id="rv-status" name="status" class="select">
+          ${["completed", "pending", "scheduled"].map((s) => `<option value="${s}" ${review?.status === s ? "selected" : ""}>${s.toUpperCase()}</option>`).join("")}
+        </select>
+      </div>
+      <div class="form-row full">
+        <label class="label" for="rv-summary">SUMMARY</label>
+        <textarea id="rv-summary" name="summary" class="input textarea" required>${escapeHtml(review?.summary ?? "")}</textarea>
+      </div>
+      <div class="form-row full">
+        <label class="label" for="rv-goals">DEVELOPMENT GOALS</label>
+        <textarea id="rv-goals" name="goals" class="input textarea">${escapeHtml(review?.goals ?? "")}</textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn outline" data-close-modal>Cancel</button>
+        <button type="submit" class="btn">${review ? "UPDATE" : "SAVE"} REVIEW</button>
+      </div>
+    </form>
+  `,
+  );
+  document
+    .getElementById("review-form")
+    .addEventListener("submit", (event) => {
+      event.preventDefault();
+      const rv = new FormData(event.currentTarget);
+      const values = Object.fromEntries(rv.entries());
+      values.rating = Number(values.rating);
+      if (review) {
+        state.performanceReviews = state.performanceReviews.map((r) =>
+          r.id === review.id ? { ...r, ...values } : r,
+        );
+        toast("Review updated!");
+      } else {
+        state.performanceReviews.unshift({
+          id: `PERF${String(state.performanceReviews.length + 1).padStart(3, "0")}`,
+          ...values,
+        });
+        toast("Review added!");
+      }
+      savePerformanceReviews();
+      closeModal();
+      render();
+    });
+}
+
+function attachPerformanceReviewsEvents() {
+  document
+    .getElementById("new-review")
+    ?.addEventListener("click", () => openReviewModal());
+  document.querySelectorAll("[data-edit-review]").forEach((button) =>
+    button.addEventListener("click", () =>
+      openReviewModal(button.getAttribute("data-edit-review")),
+    ),
+  );
+  document.querySelectorAll("[data-delete-review]").forEach((button) =>
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-delete-review");
+      if (!confirm("Delete this performance review?")) return;
+      state.performanceReviews = state.performanceReviews.filter(
+        (r) => r.id !== id,
+      );
+      savePerformanceReviews();
+      toast("Review deleted!");
+      render();
+    }),
+  );
+}
+
 function renderAttendance() {
   const filtered = state.attendanceRecords.filter(
     (r) =>
@@ -1958,6 +2221,7 @@ function attachPageEvents(current) {
   if (current === "payroll") attachPayrollEvents();
   if (current === "time-off") attachTimeOffEvents();
   if (current === "attendance") attachAttendanceEvents();
+  if (current === "performance-reviews") attachPerformanceReviewsEvents();
 }
 
 function showModal(content, size = "") {
