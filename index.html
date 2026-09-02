@@ -3,13 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="0; url=./frontend/index.html" />
-    <title>Modern Tech Solutions</title>
+    <meta
+      name="description"
+      content="Modern Tech Solutions HR Management System converted to plain HTML, CSS and JavaScript."
+    />
+    <title>Modern Tech Solutions | HR Management System</title>
+    <link rel="stylesheet" href="./frontend/assets/css/styles.css" />
   </head>
   <body>
-    <p>Loading Modern Tech Solutions...</p>
-    <script>
-      window.location.replace("./frontend/index.html");
-    </script>
+    <noscript>This application needs JavaScript enabled.</noscript>
+    <div id="app"></div>
+    <div
+      id="toast-root"
+      class="toast-root"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <div id="modal-root"></div>
+    <script src="./frontend/assets/js/theme.js"></script>
+    <script src="./frontend/assets/js/embeddedData.js"></script>
+    <script src="./frontend/assets/js/app.js" defer></script>
   </body>
 </html>
